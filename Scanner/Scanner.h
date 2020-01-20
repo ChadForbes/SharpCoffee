@@ -22,6 +22,7 @@ private:
 	char m_CurrentChar;
 	std::vector<std::vector<std::vector<unsigned int>>> m_Automata;
 	std::vector<std::tuple<int, int, int>> m_CharSet;
+	std::map<std::string, int> m_KeywordTable;
 
 	unsigned int GetInputCode();
 
