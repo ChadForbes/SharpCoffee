@@ -11,6 +11,7 @@ public:
 
 private:
 	Scanner m_Scanner;
+	std::vector<std::vector<std::vector<unsigned int>>> m_Automata;
 
 	//Disallow copying or assignment.
 	Translator(Translator& a_Source) {};
