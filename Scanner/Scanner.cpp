@@ -12,11 +12,11 @@ unsigned int Scanner::GetInputCode()
 	{
 		return 1;
 	}
-	for (int k = 0; k < m_CharSet.size(); ++k)
+	for (int k = 0; k < m_InputClasses.size(); ++k)
 	{
-		if (m_CurrentChar >= get<0>(m_CharSet[k]) && m_CurrentChar <= get<1>(m_CharSet[k]))
+		if (m_InputClasses[k].find(m_CurrentChar) != string::npos)
 		{
-			return get<2>(m_CharSet[k]);
+			return k + 2;
 		}
 	}
 	return 0;
@@ -49,9 +49,13 @@ int Scanner::NextLexeme()
 		}
 		switch (z_CurrentState)
 		{
+		case -4: //Invalid character.
+			//return -something
+		case -3: //Invalid token.
+			//return -something
 		case -2: //Literal.
 			return z_ReturnCode;
-		case -1: //Keyword/identifier.
+		case -1: //Keyword/identifier/operator.
 			return TokenCode();
 		default:
 			continue;
