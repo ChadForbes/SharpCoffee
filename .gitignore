@@ -31,3 +31,5 @@
 *.out
 *.app
 /.vs/SharpCoffee/v16/Browse.VC.opendb
+/.vs/SharpCoffee/v16/Browse.VC.db
+/.vs/SharpCoffee/v16/.suo
