@@ -6,8 +6,22 @@
 
 using namespace std;
 
+Scanner::Scanner(string a_FilePath)
+{
+	m_InputFile.open(a_FilePath);
+	if (m_InputFile)
+	{
+		m_InputFile.get(m_CurrentChar);
+	}
+	else
+	{
+		std::cout << "Could not open file. Filepath: " << a_FilePath;
+	}
+}
+
 unsigned int Scanner::GetInputCode()
 {
+	m_CurrentChar = m_InputFile.get();
 	if (m_InputFile.eof())
 	{
 		return 1;
@@ -37,11 +51,14 @@ int Scanner::NextLexeme()
 	int z_ReturnCode = 0;
 	int z_CurrentState = 0;
 	unsigned int z_InputCode = GetInputCode();
-	unsigned int z_Automaton = m_Automata[0][0][z_InputCode];
+	unsigned int z_StateTable = m_StateTables[0][0][z_InputCode];
+	m_CurrentLexeme = "";
+	m_CurrentLexeme += m_CurrentChar;
+	m_CurrentChar = m_InputFile.get();
 	while (true)
 	{
 		z_InputCode = GetInputCode();
-		z_CurrentState = m_Automata[z_Automaton][z_CurrentState][z_InputCode];
+		z_CurrentState = m_StateTables[z_StateTable][z_CurrentState][z_InputCode];
 		if (z_CurrentState < 0 && z_CurrentState != -1)
 		{
 			z_ReturnCode = -z_CurrentState;
@@ -58,6 +75,8 @@ int Scanner::NextLexeme()
 		case -1: //Keyword/identifier/operator.
 			return TokenCode();
 		default:
+			m_CurrentLexeme += m_CurrentChar;
+			m_CurrentChar = m_InputFIle.get();
 			continue;
 		}
 	}

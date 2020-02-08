@@ -20,7 +20,7 @@ public:
 
 private:
 	char m_CurrentChar;
-	std::vector<std::vector<std::vector<unsigned int>>> m_Automata;
+	std::vector<std::vector<std::vector<int>>> m_StateTables;
 	std::vector<std::string> m_InputClasses;
 	std::map<std::string, int> m_KeywordTable;
 
