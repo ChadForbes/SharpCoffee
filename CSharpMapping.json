@@ -1,0 +1,90 @@
+{
+    "C# Statements": {
+        //hello world statements
+        "-10": "{",
+        "-11": "}",
+        "-12": "class VALUE1",
+        "-13": "static void Main()",
+        "-14": "System.Colsole.WriteLine(VALUE1);",
+        "-15": "System.Colsole.Write(VALUE1);",
+        "-16": "using VALUE1;",
+
+        //class declarations
+        "21": "public class VALUE1",
+        "22": "private class VALUE1",
+        "23": "protected class VALUE1",
+        "24": "internal class VALUE1",
+        "25": "protected internal class VALUE1",
+        "26": "private protected class VALUE1",
+
+        //Value type declaration and assignment statements
+        "-120": "bool VALUE1;",
+        "-121": "bool VALUE1 = VALUE2;",
+        "-122": "byte VALUE1;",
+        "-123": "byte VALUE1 = VALUE2;",
+        "-124": "char VALUE1;",
+        "-125": "char VALUE1 = VALUE2;",
+        "-126": "decimal VALUE1;",
+        "-127": "decimal VALUE1 = VALUE2;",
+        "-128": "double VALUE1;",
+        "-129": "double VALUE1 = VALUE2;",
+        "-130": "float VALUE1;",
+        "-131": "float VALUE1 = VALUE2;",
+        "-132": "int VALUE1;",
+        "-133": "int VALUE1 = VALUE2;",
+        "-134": "long VALUE1;",
+        "-135": "long VALUE1 = VALUE2;",
+        "-136": "sbyte VALUE1;",
+        "-137": "sbyte VALUE1 = VALUE2;",
+        "-138": "short VALUE1;",
+        "-139": "short VALUE1 = VALUE2;",
+        "-140": "uint VALUE1;",
+        "-141": "uint VALUE1 = VALUE2;",
+        "-142": "ulong VALUE1;",
+        "-143": "ulong VALUE1 = VALUE2;",
+        "-144": "ushort VALUE1;",
+        "-145": "ushort VALUE1 = VALUE2;",
+
+        //Reference Type declaration statements
+        "-230": "object VALUE1;",
+
+        //Dynamic Type declaration/assignment statements
+        "-231": "dynamic VALUE1 = VALUE2;",
+
+        //String Type declaration and assignment statements
+        "-232": "String VALUE1;",
+        "-233": "String VALUE1 = VALUE2;",
+
+        //Pointer Type declaration an
+
+        //Basic If-Else Statements
+        "-340": "if (CONDITION1)",
+        "-341": "else if (CONDITION1)",
+        "-342": "else (CONTITION1)",
+
+        //If-else using OR
+        "-343": "if (CONDITION1 || CONDITION2)",
+        "-344": "else if (CONDITION1 || CONDITION2)",
+        "-345": "else (CONDITION1 || CONDITION2)",
+
+        //if-else using AND
+        "-346": "if (CONDITION! && CONDITION2)",
+        "-347": "else if (CONDITION! && CONDITION2)",
+        "-348": "else (CONDITION! && CONDITION2)",
+
+        //for loops CHECKGLEN
+        "-450": "for (CONDITION1; CONDITION2; CONDITION3)",
+
+        //while loops CHECKGLEN
+        "-451": "while (CONDITION1)",
+        "-452": "while (CONDITION1 || CONDITION2)",
+        "-453": "while (CONDITION1 && CONDITION2)",
+
+        //do statement
+        "-454": "do",
+
+        //Assignment Statement
+        "-1000": "VALUE1 = VALUE2;"
+
+    }
+}
