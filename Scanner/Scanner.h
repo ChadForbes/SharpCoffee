@@ -1,12 +1,14 @@
 #pragma once
 #include <string>
+#include <vector>
+#include <map>
 #include <fstream>
 
 class Scanner
 {
 public:
+	Scanner();
 	Scanner(std::string a_FilePath);
-	Scanner() {};
 	~Scanner()
 	{
 		m_InputFile.close();

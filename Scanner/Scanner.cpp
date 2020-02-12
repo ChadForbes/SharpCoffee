@@ -2,6 +2,7 @@
 #include <vector>
 #include <tuple>
 #include <map>
+#include <iostream>
 #include "Scanner.h"
 
 using namespace std;
@@ -11,11 +12,12 @@ Scanner::Scanner(string a_FilePath)
 	m_InputFile.open(a_FilePath);
 	if (m_InputFile)
 	{
-		m_InputFile.get(m_CurrentChar);
+		m_CurrentChar = m_InputFile.get();
 	}
 	else
 	{
-		std::cout << "Could not open file. Filepath: " << a_FilePath;
+		//Throw error of some sort.
+		cout << "Could not open file. Filepath: " << a_FilePath;
 	}
 }
 
@@ -41,7 +43,7 @@ int Scanner::TokenCode()
 	std::map<std::string, int>::const_iterator z_TokenValue = m_KeywordTable.find(m_CurrentLexeme);
 	if (z_TokenValue == m_KeywordTable.end())
 	{
-		return m_KeywordTable["Identifier"];
+		return m_KeywordTable["identifier"];
 	}
 	return z_TokenValue->second;
 }
@@ -67,16 +69,16 @@ int Scanner::NextLexeme()
 		switch (z_CurrentState)
 		{
 		case -4: //Invalid character.
-			//return -something
+			return -4;
 		case -3: //Invalid token.
-			//return -something
+			return -3;
 		case -2: //Literal.
 			return z_ReturnCode;
 		case -1: //Keyword/identifier/operator.
 			return TokenCode();
 		default:
 			m_CurrentLexeme += m_CurrentChar;
-			m_CurrentChar = m_InputFIle.get();
+			m_CurrentChar = m_InputFile.get();
 			continue;
 		}
 	}
