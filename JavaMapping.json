@@ -10,12 +10,12 @@
         "-16": "import VALUE1;",
 
         //class declarations
-        "21": "public class VALUE1",
-        "22": "private class VALUE1",
-        "23": " class VALUE1",
-        "24": "protected class VALUE1",
-        "25": " class VALUE1",
-        "26": " class VALUE1",
+        "-21": "public class VALUE1",
+        "-22": "private class VALUE1",
+        "-23": " class VALUE1",
+        "-24": "protected class VALUE1",
+        "-25": " class VALUE1",
+        "-26": " class VALUE1",
 
 
         //Value type declaration and assignment statements
@@ -78,6 +78,12 @@
 
         //do statement
         "-454": "do",
+
+        //Basic Arithmetic
+        "560": "VALUE1 = VALUE2 + VALUE 3",
+        "561": "VALUE1 = VALUE2 - VALUE 3",
+        "562": "VALUE1 = VALUE2 * VALUE 3",
+        "563": "VALUE1 = VALUE2 / VALUE 3",
 
         //Assignment statement
         "-1000": "VALUE1 = VALUE2;"
