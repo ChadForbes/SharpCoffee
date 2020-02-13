@@ -10,12 +10,12 @@
         "-16": "using VALUE1;",
 
         //class declarations
-        "21": "public class VALUE1",
-        "22": "private class VALUE1",
-        "23": "protected class VALUE1",
-        "24": "internal class VALUE1",
-        "25": "protected internal class VALUE1",
-        "26": "private protected class VALUE1",
+        "-21": "public class VALUE1",
+        "-22": "private class VALUE1",
+        "-23": "protected class VALUE1",
+        "-24": "internal class VALUE1",
+        "-25": "protected internal class VALUE1",
+        "-26": "private protected class VALUE1",
 
         //Value type declaration and assignment statements
         "-120": "bool VALUE1;",
@@ -68,9 +68,9 @@
         "-345": "else (CONDITION1 || CONDITION2)",
 
         //if-else using AND
-        "-346": "if (CONDITION! && CONDITION2)",
-        "-347": "else if (CONDITION! && CONDITION2)",
-        "-348": "else (CONDITION! && CONDITION2)",
+        "-346": "if (CONDITION1 && CONDITION2)",
+        "-347": "else if (CONDITION1 && CONDITION2)",
+        "-348": "else (CONDITION1 && CONDITION2)",
 
         //for loops CHECKGLEN
         "-450": "for (CONDITION1; CONDITION2; CONDITION3)",
@@ -82,6 +82,20 @@
 
         //do statement
         "-454": "do",
+
+        //Basic Arithmetic
+        "560": "VALUE1 = VALUE2 + VALUE 3",
+        "561": "VALUE1 = VALUE2 - VALUE 3",
+        "562": "VALUE1 = VALUE2 * VALUE 3",
+        "563": "VALUE1 = VALUE2 / VALUE 3",
+
+        //Array Declarations CHECKGLEN
+        "670": "TYPE1[] VALUE1 = new TYPE1[VALUE2];",
+        "671": "TYPE1[] VALUE1 = new TYPE1[VALUE2] {VALUE3};",
+        "672": "TYPE1[,] VALUE1 = new TYPE1[VALUE2, VALUE3];",
+        "673": "TYPE1[,] VALUE1 = { {VALUE2}, {VALUE3} };",
+
+        "674": "TYPE1[][] VALUE1 = new TYPE1[VALUE2][];",
 
         //Assignment Statement
         "-1000": "VALUE1 = VALUE2;"
