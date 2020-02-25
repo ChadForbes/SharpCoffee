@@ -30,4 +30,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\InputClasses_CSharp.json" />
+    <None Include="..\KeywordsOperators_CSharp.json" />
+    <None Include="..\ParserStateTables_CSharp.json" />
+  </ItemGroup>
 </Project>

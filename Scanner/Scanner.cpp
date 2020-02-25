@@ -23,7 +23,6 @@ Scanner::Scanner(string a_FilePath)
 
 unsigned int Scanner::GetInputCode()
 {
-	m_CurrentChar = m_InputFile.get();
 	if (m_InputFile.eof())
 	{
 		return 1;
@@ -52,16 +51,25 @@ int Scanner::NextLexeme()
 {
 	int z_ReturnCode = 0;
 	int z_CurrentState = 0;
-	unsigned int z_InputCode = GetInputCode();
-	unsigned int z_StateTable = m_StateTables[0][0][z_InputCode];
-	m_CurrentLexeme = "";
-	m_CurrentLexeme += m_CurrentChar;
-	m_CurrentChar = m_InputFile.get();
+	unsigned int z_InputCode = -4;
+	unsigned int z_StateTable = 0;
+	while (true)
+	{//Loop to allow for the removal of irrelavent characters.
+		z_InputCode = GetInputCode();
+		z_StateTable = m_StateTables[0][0][z_InputCode];
+		m_CurrentLexeme = "";
+		m_CurrentLexeme += m_CurrentChar;
+		m_CurrentChar = m_InputFile.get();
+		if (z_StateTable != 0)
+		{//If the current character is not irrelevant continue to the next loop.
+			break;
+		}
+	}
 	while (true)
 	{
 		z_InputCode = GetInputCode();
 		z_CurrentState = m_StateTables[z_StateTable][z_CurrentState][z_InputCode];
-		if (z_CurrentState < 0 && z_CurrentState != -1)
+		if (z_CurrentState < -4)
 		{
 			z_ReturnCode = -z_CurrentState;
 			z_CurrentState = -2;
