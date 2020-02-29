@@ -31,8 +31,9 @@
 *.out
 *.app
 /.vs/
-/SharpCoffee/
+/Debug/
 /SharpCoffeeApp/SharpCoffeeApp.vcxproj
 /SharpCoffeeApp/SharpCoffeeApp.vcxproj.filters
 /SharpCoffeeApp/SharpCoffeeApp.vcxproj.user
+/SharpCoffeeApp/Debug/
 

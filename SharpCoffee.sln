@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SharpCoffeeApp", "SharpCoffeeApp\SharpCoffeeApp.vcxproj", "{3910F156-790D-48E9-83C4-2754A386EFDB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scanner", "Scanner\Scanner.vcxproj", "{A369C2ED-7A41-43AE-BCA7-317B03970680}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{3910F156-790D-48E9-83C4-2754A386EFDB}.Release|x64.Build.0 = Release|x64
 		{3910F156-790D-48E9-83C4-2754A386EFDB}.Release|x86.ActiveCfg = Release|Win32
 		{3910F156-790D-48E9-83C4-2754A386EFDB}.Release|x86.Build.0 = Release|Win32
+		{A369C2ED-7A41-43AE-BCA7-317B03970680}.Debug|x64.ActiveCfg = Debug|x64
+		{A369C2ED-7A41-43AE-BCA7-317B03970680}.Debug|x64.Build.0 = Debug|x64
+		{A369C2ED-7A41-43AE-BCA7-317B03970680}.Debug|x86.ActiveCfg = Debug|Win32
+		{A369C2ED-7A41-43AE-BCA7-317B03970680}.Debug|x86.Build.0 = Debug|Win32
+		{A369C2ED-7A41-43AE-BCA7-317B03970680}.Release|x64.ActiveCfg = Release|x64
+		{A369C2ED-7A41-43AE-BCA7-317B03970680}.Release|x64.Build.0 = Release|x64
+		{A369C2ED-7A41-43AE-BCA7-317B03970680}.Release|x86.ActiveCfg = Release|Win32
+		{A369C2ED-7A41-43AE-BCA7-317B03970680}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
