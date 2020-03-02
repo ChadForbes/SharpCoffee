@@ -5,6 +5,7 @@
         "head": ""
     },
 
+    //needs work
     "Console": {
         "body": "out",
         "head": ""
@@ -16,7 +17,7 @@
     },
 
     "WriteLine": {
-        "body": "Println",
+        "body": "println",
         "head": ""
     },
 
@@ -37,7 +38,7 @@
     },
 
     "internal": {
-        "body": "",
+        "body": "public",
         "head": ""
     },
 
@@ -115,6 +116,112 @@
     "ushort": {
         "body": "int",
         "head": ""
-    }
+    },
 
+    //Console Methods
+
+    //needs work
+    "Beep": {
+        "body": "",
+        "head": ""
+    },
+
+    "Clear": {
+        "body": "flush",
+        "head": ""
+    },
+
+    //needs work
+    "MoveBufferArea": {
+        "body": "",
+        "head": ""
+    },
+
+    //needs work
+    "OpenStandardError": {
+        "body": "",
+        "head": ""
+    },
+
+    //needs work
+    "OpenStandardInput": {
+        "body": "",
+        "head": ""
+    },
+
+    //needs work
+    "OpenStandardOutput": {
+        "body": "",
+        "head": ""
+    },
+
+    "Read": {
+        "body": "scanner.next().charAt(0)",
+        "head": "import java.util.Scanner;",
+        "declarations": "Scanner scanner = new Scanner(System.in);"
+    },
+
+    //needs work
+    "ReadKey": {
+        "body": "",
+        "head": ""
+    },
+
+    "ReadLine": {
+        "body": "scanner.nextLine()",
+        "head": "import java.util.Scanner;",
+        "declarations": "Scanner scanner = new Scanner(System.in);"
+    },
+
+    //shouldn't come up
+    "ResetColor": {
+        "body": "",
+        "head": ""
+    },
+
+    //shouldn't come up
+    "SetBufferSize": {
+        "body": "",
+        "head": ""
+    },
+
+    //shouldn't come up
+    "SetCursorPosition": {
+        "body": "",
+        "head": ""
+    },
+
+    //needs work
+    "SetError": {
+        "body": "",
+        "head": ""
+    },
+
+
+    "SetIn": {
+        "body": "",
+        "head": ""
+    },
+
+    "SetOut": {
+        "body": "",
+        "head": ""
+    },
+
+    //shouldn't come up
+    "SetWindowsPosition": {
+        "body": "",
+        "head": ""
+    },
+
+    //shouldn't come up
+    "SetWindowsSize": {
+        "body": "",
+        "head": ""
+    },
+
+    "Write": {
+        "body": "print",
+        "head": ""
+    }
 }
