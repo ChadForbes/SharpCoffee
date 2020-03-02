@@ -1,0 +1,120 @@
+{
+    //Hello World Stuff
+    "System": {
+        "body": "System",
+        "head": ""
+    },
+
+    "Console": {
+        "body": "out",
+        "head": ""
+    },
+
+    "Main": {
+        "body": "main(String[] args)",
+        "head": ""
+    },
+
+    "WriteLine": {
+        "body": "Println",
+        "head": ""
+    },
+
+    //Access Modifiers
+    "public": {
+        "body": "public",
+        "head": ""
+    },
+
+    "private": {
+        "body": "private",
+        "head": ""
+    },
+
+    "protected": {
+        "body": "protected",
+        "head": ""
+    },
+
+    "internal": {
+        "body": "",
+        "head": ""
+    },
+
+    "protected internal": {
+        "body": "protected",
+        "head": ""
+    },
+
+    "private protected": {
+        "body": "",
+        "head": ""
+    },
+
+    //Variables
+    "bool": {
+        "body": "boolean",
+        "head": ""
+    },
+
+    "byte": {
+        "body": "short",
+        "head": ""
+    },
+
+    "char": {
+        "body": "char",
+        "head": ""
+    },
+
+    "decimal": {
+        "body": "decimal",
+        "head": ""
+    },
+
+    "double": {
+        "body": "double",
+        "head": ""
+    },
+
+    "float": {
+        "body": "float",
+        "head": ""
+    },
+
+    "int": {
+        "body": "int",
+        "head": ""
+    },
+
+    "long": {
+        "body": "long",
+        "head": ""
+    },
+
+    "sbyte": {
+        "body": "byte",
+        "head": ""
+    },
+
+    "short": {
+        "body": "short",
+        "head": ""
+    },
+
+    "uint": {
+        "body": "long",
+        "head": ""
+    },
+
+    "ulong": {
+        "body": "BigInteger",
+        "head": "import java.math.BigInteger;"
+    },
+
+    "ushort": {
+        "body": "int",
+        "head": ""
+    }
+
+}
