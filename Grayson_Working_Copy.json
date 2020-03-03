@@ -1,9 +1,11 @@
 {
+    //Hello World Stuff
     "System": {
         "body": "System",
         "head": ""
     },
 
+    //needs work
     "Console": {
         "body": "out",
         "head": ""
@@ -19,6 +21,7 @@
         "head": ""
     },
 
+    //Access Modifiers
     "public": {
         "body": "public",
         "head": ""
@@ -49,6 +52,7 @@
         "head": ""
     },
 
+    //Variables
     "bool": {
         "body": "boolean",
         "head": ""
@@ -114,6 +118,9 @@
         "head": ""
     },
 
+    //Console Methods
+
+    //needs work
     "Beep": {
         "body": "",
         "head": ""
@@ -124,21 +131,25 @@
         "head": ""
     },
 
+    //needs work
     "MoveBufferArea": {
         "body": "",
         "head": ""
     },
 
+    //needs work
     "OpenStandardError": {
         "body": "",
         "head": ""
     },
 
+    //needs work
     "OpenStandardInput": {
         "body": "",
         "head": ""
     },
 
+    //needs work
     "OpenStandardOutput": {
         "body": "",
         "head": ""
@@ -150,6 +161,7 @@
         "declarations": "Scanner scanner = new Scanner(System.in);"
     },
 
+    //needs work
     "ReadKey": {
         "body": "",
         "head": ""
@@ -161,21 +173,25 @@
         "declarations": "Scanner scanner = new Scanner(System.in);"
     },
 
+    //shouldn't come up
     "ResetColor": {
         "body": "",
         "head": ""
     },
 
+    //shouldn't come up
     "SetBufferSize": {
         "body": "",
         "head": ""
     },
 
+    //shouldn't come up
     "SetCursorPosition": {
         "body": "",
         "head": ""
     },
 
+    //needs work
     "SetError": {
         "body": "",
         "head": ""
@@ -192,11 +208,13 @@
         "head": ""
     },
 
+    //shouldn't come up
     "SetWindowsPosition": {
         "body": "",
         "head": ""
     },
 
+    //shouldn't come up
     "SetWindowsSize": {
         "body": "",
         "head": ""
