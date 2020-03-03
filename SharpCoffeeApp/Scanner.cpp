@@ -115,7 +115,7 @@ int Scanner::NextLexeme()
 		z_CurrentState = m_StateTables[z_StateTable][z_CurrentState][z_InputCode];
 		if (z_CurrentState < -4)
 		{
-			z_ReturnCode = -z_CurrentState;
+			z_ReturnCode = z_CurrentState;
 			z_CurrentState = -2;
 		}
 		switch (z_CurrentState)
