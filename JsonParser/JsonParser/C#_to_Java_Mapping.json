@@ -1,0 +1,209 @@
+{
+    "System": {
+        "body": "System",
+        "head": ""
+    },
+
+    "Console": {
+        "body": "out",
+        "head": ""
+    },
+
+    "Main": {
+        "body": "main(String[] args)",
+        "head": ""
+    },
+
+    "WriteLine": {
+        "body": "println",
+        "head": ""
+    },
+
+    "public": {
+        "body": "public",
+        "head": ""
+    },
+
+    "private": {
+        "body": "private",
+        "head": ""
+    },
+
+    "protected": {
+        "body": "protected",
+        "head": ""
+    },
+
+    "internal": {
+        "body": "public",
+        "head": ""
+    },
+
+    "protected internal": {
+        "body": "protected",
+        "head": ""
+    },
+
+    "private protected": {
+        "body": "",
+        "head": ""
+    },
+
+    "bool": {
+        "body": "boolean",
+        "head": ""
+    },
+
+    "byte": {
+        "body": "short",
+        "head": ""
+    },
+
+    "char": {
+        "body": "char",
+        "head": ""
+    },
+
+    "decimal": {
+        "body": "decimal",
+        "head": ""
+    },
+
+    "double": {
+        "body": "double",
+        "head": ""
+    },
+
+    "float": {
+        "body": "float",
+        "head": ""
+    },
+
+    "int": {
+        "body": "int",
+        "head": ""
+    },
+
+    "long": {
+        "body": "long",
+        "head": ""
+    },
+
+    "sbyte": {
+        "body": "byte",
+        "head": ""
+    },
+
+    "short": {
+        "body": "short",
+        "head": ""
+    },
+
+    "uint": {
+        "body": "long",
+        "head": ""
+    },
+
+    "ulong": {
+        "body": "BigInteger",
+        "head": "import java.math.BigInteger;"
+    },
+
+    "ushort": {
+        "body": "int",
+        "head": ""
+    },
+
+    "Beep": {
+        "body": "",
+        "head": ""
+    },
+
+    "Clear": {
+        "body": "flush",
+        "head": ""
+    },
+
+    "MoveBufferArea": {
+        "body": "",
+        "head": ""
+    },
+
+    "OpenStandardError": {
+        "body": "",
+        "head": ""
+    },
+
+    "OpenStandardInput": {
+        "body": "",
+        "head": ""
+    },
+
+    "OpenStandardOutput": {
+        "body": "",
+        "head": ""
+    },
+
+    "Read": {
+        "body": "scanner.next().charAt(0)",
+        "head": "import java.util.Scanner;",
+        "declarations": "Scanner scanner = new Scanner(System.in);"
+    },
+
+    "ReadKey": {
+        "body": "",
+        "head": ""
+    },
+
+    "ReadLine": {
+        "body": "scanner.nextLine()",
+        "head": "import java.util.Scanner;",
+        "declarations": "Scanner scanner = new Scanner(System.in);"
+    },
+
+    "ResetColor": {
+        "body": "",
+        "head": ""
+    },
+
+    "SetBufferSize": {
+        "body": "",
+        "head": ""
+    },
+
+    "SetCursorPosition": {
+        "body": "",
+        "head": ""
+    },
+
+    "SetError": {
+        "body": "",
+        "head": ""
+    },
+
+
+    "SetIn": {
+        "body": "",
+        "head": ""
+    },
+
+    "SetOut": {
+        "body": "",
+        "head": ""
+    },
+
+    "SetWindowsPosition": {
+        "body": "",
+        "head": ""
+    },
+
+    "SetWindowsSize": {
+        "body": "",
+        "head": ""
+    },
+
+    "Write": {
+        "body": "print",
+        "head": ""
+    }
+}
