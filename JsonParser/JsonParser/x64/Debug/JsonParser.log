@@ -1,2 +1,4 @@
 ﻿  Source.cpp
+F:\Users\chads\Documents\School\SeniorProject\SharpCoffee\JsonParser\JsonParser\Source.cpp(98,19): warning C4018: '<': signed/unsigned mismatch
+F:\Users\chads\Documents\School\SeniorProject\SharpCoffee\JsonParser\JsonParser\Source.cpp(123,20): warning C4018: '<': signed/unsigned mismatch
   JsonParser.vcxproj -> F:\Users\chads\Documents\School\SeniorProject\SharpCoffee\JsonParser\x64\Debug\JsonParser.exe
