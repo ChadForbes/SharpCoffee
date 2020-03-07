@@ -19,9 +19,14 @@ int main(int argc, char* argv[])
 		z_InputFilePath = argv[1];
 		z_OutputFilePath = "";
 	}
+	else if (argc == 1)
+	{
+		system("SCGUI.py");
+		return EXIT_SUCCESS;
+	}
 	else
 	{
-		cerr << "Error: Invalid parameters.\nExpecting: SharpCoffeeApp.exe <Input File Path> [<Output File Path>]" << endl;
+		cerr << "Error: Invalid parameters.\nExpecting: SharpCoffeeApp.exe [<Input File Path>] [<Output File Path>]" << endl;
 		return EXIT_FAILURE;
 	}
 	cout << "Initializing tokanizer..." << endl;
