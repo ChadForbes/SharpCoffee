@@ -95,6 +95,7 @@ def SaveAsAction(Language):
 parentWindow = Tk()
 parentWindow.title("C# to Java Cross-compiler")
 parentWindow.geometry("950x500")
+parentWindow.iconbitmap("SharpCoffeeLogo.ico");
 
 #parentWindow.grid_columnconfigure(0,weight=2)
 parentWindow.grid_columnconfigure(1,weight=1)#needed
