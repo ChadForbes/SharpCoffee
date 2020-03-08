@@ -7,6 +7,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SharpCoffeeApp", "SharpCoff
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scanner", "Scanner\Scanner.vcxproj", "{A369C2ED-7A41-43AE-BCA7-317B03970680}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{39EB3B6F-8130-471D-A68E-831C48CB3610}"
+	ProjectSection(SolutionItems) = preProject
+		SharpCoffeeLogo.ico = SharpCoffeeLogo.ico
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

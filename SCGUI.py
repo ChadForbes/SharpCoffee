@@ -1,6 +1,7 @@
 import tkinter
 from tkinter import *
 from tkinter import scrolledtext
+from tkinter import filedialog
 import os.path
 
 #TODO: screen should resize nicer
@@ -25,7 +26,8 @@ def importAction():
     importWindow = Tk()
     importWindow.geometry("500x100")
     importWindow.title("Import File")
-
+    
+    z_ImportFile = filedialog.askopenfilename();
     importDirLabel = Label(importWindow, text="File Route ")
     importDirLabel.grid(row=1, column=0, padx=10, pady=10)
     importDirEntry = tkinter.Entry(importWindow, width=50)
