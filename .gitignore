@@ -34,3 +34,6 @@
 /.vs/SharpCoffee/v16/Browse.VC.db
 /.vs/SharpCoffee/v16/.suo
 /.vs
+/SharpCoffeeApp/
+/JsonParser/
+/Debug/

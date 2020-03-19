@@ -49,6 +49,10 @@ int Scanner::TokenCode()
 
 int Scanner::NextLexeme()
 {
+	if (m_InputFile.eof())
+	{
+		return -1;
+	}
 	int z_ReturnCode = 0;
 	int z_CurrentState = 0;
 	unsigned int z_InputCode = -4;

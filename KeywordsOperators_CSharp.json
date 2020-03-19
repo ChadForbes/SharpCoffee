@@ -130,6 +130,16 @@
   "<<=": 125,
   "=>": 126,
   ">>": 127,
-  ">>=": 128
+  ">>=": 128,
+  //Literals
+  "Comment": 129,
+  "String Literal": 130,
+  "Verbatum String Literal": 131,
+  "Interpolated String Literal": 132,
+  "Integer Literal": 133,
+  "Hex Literal": 134,
+  "Real Literal": 135,
+  "Exponential Literal": 136,
+  "Char Literal": 137
   //Preprocessing directives?
 }
