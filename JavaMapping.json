@@ -1,0 +1,93 @@
+{
+    "Java Statements": {
+        //hello world statements
+        "-10": "{",
+        "-11": "}",
+        "-12": "public class VALUE1",
+        "-13": "public static void main(String[] args)",
+        "-14": "System.out.println(VALUE1);",
+        "-15": "System.out.print(VALUE1);",
+        "-16": "import VALUE1;",
+
+        //class declarations
+        "-21": "public class VALUE1",
+        "-22": "private class VALUE1",
+        "-23": " class VALUE1",
+        "-24": "protected class VALUE1",
+        "-25": " class VALUE1",
+        "-26": " class VALUE1",
+
+
+        //Value type declaration and assignment statements
+        "-120": "boolean VALUE1;",
+        "-121": "boolean VALUE1 = VALUE2;",
+        "-122": "short VALUE1;",
+        "-123": "short VALUE1 = VALUE2;",
+        "-124": "char VALUE1;",
+        "-125": "char VALUE1 = VALUE2;",
+        "-126": "decimal VALUE1;",
+        "-127": "decimal VALUE1 = VALUE2;",
+        "-128": "double VALUE1;",
+        "-129": "double VALUE1 = VALUE2;",
+        "-130": "float VALUE1;",
+        "-131": "float VALUE1 = VALUE2;",
+        "-132": "int VALUE1;",
+        "-133": "int VALUE1 = VALUE2;",
+        "-134": "long VALUE1;",
+        "-135": "long VALUE1 = VALUE2;",
+        "-136": "byte VALUE1;",
+        "-137": "byte VALUE1 = VALUE2;",
+        "-138": "short VALUE1;",
+        "-139": "short VALUE1 = VALUE2;",
+        "-140": "long VALUE1;",
+        "-141": "long VALUE1 = VALUE2;",
+        "-142": "BigInteger VALUE1;",
+        "-143": "BigInteger VALUE1 = BigInteger.valueof(VALUE2);",
+        "-144": "int VALUE1;",
+        "-145": "int VALUE1 = VALUE2;",
+
+        //Reference Type declaration statements
+        "-230": "object VALUE1;",
+
+        //String Type declaration and assignment statements
+        "-232": "String VALUE1;",
+        "-233": "String VALUE1 = VALUE2;",
+
+        //Basic If-Else Statements
+        "-340": "if (CONDITION1)",
+        "-341": "else if (CONDITION1)",
+        "-342": "else (CONTITION1)",
+
+        //If-else using OR
+        "-343": "if (CONDITION1 || CONDITION2)",
+        "-344": "else if (CONDITION1 || CONDITION2)",
+        "-345": "else (CONDITION1 || CONDITION2)",
+
+        //if-else using AND
+        "-346": "if (CONDITION1 && CONDITION2)",
+        "-347": "else if (CONDITION1 && CONDITION2)",
+        "-348": "else (CONDITION1 && CONDITION2)",
+
+        //for loops CHECKGLEN
+        "-450": "for (CONDITION1; CONDITION2; CONDITION3)",
+
+        //while loops CHECKGLEN
+        "-451": "while (CONDITION1)",
+        "-452": "while (CONDITION1 || CONDITION2)",
+        "-453": "while (CONDITION1 && CONDITION2)",
+
+        //do statement
+        "-454": "do",
+
+        //Basic Arithmetic
+        "560": "VALUE1 = VALUE2 + VALUE 3",
+        "561": "VALUE1 = VALUE2 - VALUE 3",
+        "562": "VALUE1 = VALUE2 * VALUE 3",
+        "563": "VALUE1 = VALUE2 / VALUE 3",
+
+        //Assignment statement
+        "-1000": "VALUE1 = VALUE2;"
+
+        //
+    }
+}

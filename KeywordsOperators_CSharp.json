@@ -1,4 +1,16 @@
 {
+  //Literals:
+  "Comment": -100,
+  "String Literal": -101,
+  "Verbatum String Literal": -102,
+  "Interpolated String Literal": -103,
+  "Interpolated Verbatum String Literal": -109,
+  "Integer Literal": -104,
+  "Hex Literal": -105,
+  "Real Literal": -106,
+  "Exponential Literal": -107,
+  "Char Literal": -108,
+  //Identifiers:
   "identifier": 0,
   //Keywords:
   "abstract": 1,
