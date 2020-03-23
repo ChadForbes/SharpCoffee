@@ -114,18 +114,42 @@ vector<vector<vector<int>>> getStateTables() {
 	// parses the json into a document while ignoring comments
 	reader.parse(ifs, root, false);
 
-	int result;
+	int result = 0;
 
-	Json::Value& tables = root["ParserStateTables_CSharp"][0];
+	Json::Value& tables = root["ParserStateTables_CSharp"];
 
 	vector<vector<vector<int>>> z_stateTable;
+	cout << tables.size() << endl;
+	cout << tables[0][0][2] << endl;
 
 	for (int i = 0; i < tables.size(); i++) {
-		result = tables[i].asInt();
-		// z_stateTable.push_back(result);
-		//cout << result << endl;
+
+		vector<vector<int>> stat;
+		z_stateTable.push_back(stat);
+		//cout << i << endl;
+		for (int j = 0; j < tables[i].size(); j++) {
+
+			vector <int> v;
+			z_stateTable[i].push_back(v);
+
+			for (int k = 0; k < tables[i][0].size(); k++) {
+
+				z_stateTable[i][j].push_back(tables[i][0][j].asInt());
+				//result += tables[i][0][j].asInt();
+				// z_stateTable.push_back(result);
+				//cout << result << endl;			
+
+			}
+		}
 
 	}
+
+	for (size_t i = 0; i < z_stateTable.size(); i++)
+		for (size_t j = 0; j < z_stateTable[i].size(); j++)
+			for (size_t k = 0; k < z_stateTable[i][j].size(); k++)
+				cout << "z_stateTable[" << i << "][" << j << "][" << k << "] = " << z_stateTable[i][j][k] << endl;
+	//cout << result << endl;
+
 	//cout << *it << endl;
 
 	return z_stateTable;
@@ -138,6 +162,6 @@ int main(){
 	// getInputClass();
 
 	// currently not working
-	// getStateTables();
+	getStateTables();
 	return 0;
 }
