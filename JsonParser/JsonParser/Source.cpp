@@ -161,7 +161,6 @@ int main(){
 	// getKeywordsOperatorsCSharp();
 	// getInputClass();
 
-	// currently not working
 	getStateTables();
 	return 0;
 }
