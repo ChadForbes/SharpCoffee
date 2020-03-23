@@ -134,11 +134,7 @@ vector<vector<vector<int>>> getStateTables() {
 
 			for (int k = 0; k < tables[i][0].size(); k++) {
 
-				z_stateTable[i][j].push_back(tables[i][0][j].asInt());
-				//result += tables[i][0][j].asInt();
-				// z_stateTable.push_back(result);
-				//cout << result << endl;			
-
+				z_stateTable[i][j].push_back(tables[i][j][k].asInt());
 			}
 		}
 
@@ -148,9 +144,6 @@ vector<vector<vector<int>>> getStateTables() {
 		for (size_t j = 0; j < z_stateTable[i].size(); j++)
 			for (size_t k = 0; k < z_stateTable[i][j].size(); k++)
 				cout << "z_stateTable[" << i << "][" << j << "][" << k << "] = " << z_stateTable[i][j][k] << endl;
-	//cout << result << endl;
-
-	//cout << *it << endl;
 
 	return z_stateTable;
 }
@@ -160,7 +153,6 @@ int main(){
 	// getCSharptoJavaParse();
 	// getKeywordsOperatorsCSharp();
 	// getInputClass();
-
 	getStateTables();
 	return 0;
 }
