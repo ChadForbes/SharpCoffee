@@ -34,5 +34,7 @@
     <None Include="..\InputClasses_CSharp.json" />
     <None Include="..\KeywordsOperators_CSharp.json" />
     <None Include="..\ParserStateTables_CSharp.json" />
+    <None Include="..\ScannerStateTables_CSharp.json" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
