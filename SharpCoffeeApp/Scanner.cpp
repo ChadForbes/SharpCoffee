@@ -63,6 +63,25 @@ Scanner::Scanner(string a_FilePath)
 		z_Result = z_Inputs[i].asString();
 		m_InputClasses.push_back(z_Result);
 	}
+
+	ifstream ifs("C:\\Users\\Glenden\\source\\repos\\SharpCoffee\\ScannerStateTables_CSharp.json");
+	// parses the json into a document while ignoring comments
+	z_Reader.parse(ifs, z_Root, false);
+	Json::Value& tables = z_Root["ScannerStateTables_CSharp"];
+	for (int i = 0; i < tables.size(); i++) 
+	{
+		vector<vector<int>> stat;
+		m_StateTables.push_back(stat);
+		for (int j = 0; j < tables[i].size(); j++) 
+		{
+			vector <int> v;
+			m_StateTables[i].push_back(v);
+			for (int k = 0; k < tables[i][0].size(); k++) 
+			{
+				m_StateTables[i][j].push_back(tables[i][j][k].asInt());
+			}
+		}
+	}
 }
 
 unsigned int Scanner::GetInputCode()
@@ -101,6 +120,11 @@ int Scanner::NextLexeme()
 	{//Loop to allow for the removal of irrelavent characters.
 		z_InputCode = GetInputCode();
 		z_StateTable = m_StateTables[0][0][z_InputCode];
+		if (z_StateTable == -4)
+		{
+			m_CurrentLexeme = "EOF";
+			return -1;
+		}
 		m_CurrentLexeme = "";
 		m_CurrentLexeme += m_CurrentChar;
 		m_CurrentChar = m_InputFile.get();
