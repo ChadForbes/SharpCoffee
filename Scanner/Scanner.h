@@ -21,7 +21,7 @@ public:
 	int TokenCode();
 
 private:
-	char m_CurrentChar;
+	char m_CurrentChar = '\0';
 	std::vector<std::vector<std::vector<int>>> m_StateTables;
 	std::vector<std::string> m_InputClasses;
 	std::map<std::string, int> m_KeywordTable;
