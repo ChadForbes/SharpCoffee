@@ -23,5 +23,14 @@
     <None Include="C#_to_Java_Mapping.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="KeywordsOperators_CSharp.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="InputClasses_CSharp.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ParserStateTables_CSharp.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

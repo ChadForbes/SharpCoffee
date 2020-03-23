@@ -23,6 +23,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="C#_to_Java_Mapping.json" />
+    <None Include="InputClasses_CSharp.json" />
+    <None Include="KeywordsOperators_CSharp.json" />
+    <None Include="ParserStateTables_CSharp.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
