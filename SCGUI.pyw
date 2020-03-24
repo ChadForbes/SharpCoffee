@@ -94,9 +94,9 @@ ImportButton.grid(row=3,column=0, padx=10, pady=10)
 
 CSharpSaveFrame = tkinter.Frame(parentWindow)
 CSharpSaveFrame.grid(row=4,column=0)#removed padding to make it look nicer imo
-SaveCSharpButton = Button(CSharpSaveFrame, text="save", command = SaveAsAction())
+SaveCSharpButton = Button(CSharpSaveFrame, text="save", command = SaveAsAction)
 SaveCSharpButton.grid(row=0,column=0, padx=10, pady=10)
-SaveAsCSharpButton = Button(CSharpSaveFrame, text="save as", command = CSharpSaveAsAction())
+SaveAsCSharpButton = Button(CSharpSaveFrame, text="save as", command = CSharpSaveAsAction)
 SaveAsCSharpButton.grid(row=0,column=1, padx=10, pady=10)
 
 ExportButton = Button(parentWindow,text = "convert", command = exportAction)
@@ -110,9 +110,9 @@ JavaTextArea.grid(row =1,column=3, padx=10, pady=10)
 
 JavaSaveFrame = tkinter.Frame(parentWindow)
 JavaSaveFrame.grid(row=3,column=3, padx=10, pady=10)
-SaveJavaButton = Button(JavaSaveFrame, text ="save", command = SaveAsAction())
+SaveJavaButton = Button(JavaSaveFrame, text ="save", command = SaveAsAction)
 SaveJavaButton.grid(row=0,column=0, padx=10, pady=10)
-SaveAsJavaButton = Button(JavaSaveFrame, text ="save as", command = JavaSaveAsAction())#passing language makes it open before pressed idk why
+SaveAsJavaButton = Button(JavaSaveFrame, text ="save as", command = JavaSaveAsAction)#passing language makes it open before pressed idk why
 SaveAsJavaButton.grid(row=0,column=1, padx=10, pady=10)
 
 #this makes sure the GUI stays up
