@@ -44,7 +44,7 @@ Scanner::Scanner(string a_FilePath)
 
 	Json::Reader z_Reader;
 	Json::Value z_Root;
-	ifstream z_KeywordsFile("C:\\Users\\Glenden\\source\\repos\\SharpCoffee\\KeywordsOperators_CSharp.json");
+	ifstream z_KeywordsFile("Tokanizers\\C#\\KeywordsOperators_CSharp.json");
 	z_Reader.parse(z_KeywordsFile, z_Root, false);
 	Json::Value::Members popnam = z_Root.getMemberNames();
 	int i = 0;
@@ -54,7 +54,7 @@ Scanner::Scanner(string a_FilePath)
 		++i;
 	}
 
-	ifstream z_InputClassesFile("C:\\Users\\Glenden\\source\\repos\\SharpCoffee\\InputClasses_CSharp.json");
+	ifstream z_InputClassesFile("Tokanizers\\C#\\InputClasses_CSharp.json");
 	z_Reader.parse(z_InputClassesFile, z_Root, false);
 	string z_Result;
 	Json::Value& z_Inputs = z_Root["CSharpInputClasses"];
@@ -64,7 +64,7 @@ Scanner::Scanner(string a_FilePath)
 		m_InputClasses.push_back(z_Result);
 	}
 
-	ifstream ifs("C:\\Users\\Glenden\\source\\repos\\SharpCoffee\\ScannerStateTables_CSharp.json");
+	ifstream ifs("Tokanizers\\C#\\ScannerStateTables_CSharp.json");
 	z_Reader.parse(ifs, z_Root, false);
 	Json::Value& tables = z_Root["ScannerStateTables_CSharp"];
 	for (int i = 0; i < tables.size(); i++) 
