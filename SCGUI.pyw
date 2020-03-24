@@ -24,16 +24,14 @@ def exportAction():
     pass
 
 #TODO: take in C# file and put its content into the textbox
-def importAction():
-    importWindow = Tk()
-    importWindow.geometry("500x100")
-    importWindow.title("Import File")
-
-    importDirLabel = Label(importWindow, text="File Route ")
-    importDirLabel.grid(row=1, column=0, padx=10, pady=10)
-    importDirEntry = tkinter.Entry(importWindow, width=50)
-    importDirEntry.grid(row=1, column=1, padx=10, pady=10)
-    pass
+def CSharpImportAction():
+    importedCSharpFile = tkFileDialog.askopenfilename()
+    print(importedCSharpFile)
+    filelines = open(importedCSharpFile)
+    for line in filelines:
+        print(line)
+        CSharpTextArea.insert(INSERT,line)
+    #CSharpTextArea.insert(INSERT, importedCSharpFile)
 
 #TODO: send code to existing file
 
@@ -89,7 +87,7 @@ CSharpLabel.grid(row=0, column=0, padx=10, pady=10)
 CSharpTextArea = scrolledtext.ScrolledText(parentWindow,width=50,height=200)
 CSharpTextArea.grid(row =1,column=0, padx=10, pady=10)
 
-ImportButton = Button(parentWindow,text = "import", command = importAction)
+ImportButton = Button(parentWindow,text = "import", command = CSharpImportAction)
 ImportButton.grid(row=3,column=0, padx=10, pady=10)
 
 CSharpSaveFrame = tkinter.Frame(parentWindow)
@@ -112,7 +110,7 @@ JavaSaveFrame = tkinter.Frame(parentWindow)
 JavaSaveFrame.grid(row=3,column=3, padx=10, pady=10)
 SaveJavaButton = Button(JavaSaveFrame, text ="save", command = SaveAsAction)
 SaveJavaButton.grid(row=0,column=0, padx=10, pady=10)
-SaveAsJavaButton = Button(JavaSaveFrame, text ="save as", command = JavaSaveAsAction)#passing language makes it open before pressed idk why
+SaveAsJavaButton = Button(JavaSaveFrame, text ="save as", command = JavaSaveAsAction)
 SaveAsJavaButton.grid(row=0,column=1, padx=10, pady=10)
 
 #this makes sure the GUI stays up
