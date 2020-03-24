@@ -65,7 +65,6 @@ Scanner::Scanner(string a_FilePath)
 	}
 
 	ifstream ifs("C:\\Users\\Glenden\\source\\repos\\SharpCoffee\\ScannerStateTables_CSharp.json");
-	// parses the json into a document while ignoring comments
 	z_Reader.parse(ifs, z_Root, false);
 	Json::Value& tables = z_Root["ScannerStateTables_CSharp"];
 	for (int i = 0; i < tables.size(); i++) 
