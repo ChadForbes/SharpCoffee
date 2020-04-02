@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	for (int j = 0; j != -4 && j != -3 && j != -1; )
 	{
 		j = z_Tokanizer.NextLexeme();
-		cout << "Token: " << z_Tokanizer.m_CurrentLexeme << "\tToken Code: " << j << endl;
+		cout << "Token: " << z_Tokanizer.m_CurrentLexeme << "\t\tToken Code: " << j << endl;
 	}
 	return EXIT_SUCCESS;
 }

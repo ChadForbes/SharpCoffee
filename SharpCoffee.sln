@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{39EB3B6F-8130-471D-A68E-831C48CB3610}"
 	ProjectSection(SolutionItems) = preProject
 		SharpCoffeeLogo.ico = SharpCoffeeLogo.ico
+		SharpCoffeeLogoClear.ico = SharpCoffeeLogoClear.ico
 	EndProjectSection
 EndProject
 Global

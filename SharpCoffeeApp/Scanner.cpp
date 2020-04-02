@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Scanner::Scanner(string a_FilePath)
+Scanner::Scanner(string a_FilePath, string a_Language = "CSharp")
 {
 	m_InputFile.open(a_FilePath);
 	if (m_InputFile)
@@ -38,13 +38,16 @@ Scanner::Scanner(string a_FilePath)
 	}
 	else
 	{
-		//Throw error of some sort.
-		cout << "Could not open file. Filepath: " << a_FilePath;
+		throw ("Error at Scanner.Line41: Could not open " + a_FilePath);
 	}
 
 	Json::Reader z_Reader;
 	Json::Value z_Root;
-	ifstream z_KeywordsFile("Tokanizers\\C#\\KeywordsOperators_CSharp.json");
+	ifstream z_KeywordsFile("Tokanizers\\" + a_Language + "\\KeywordsOperators_" + a_Language + ".json");
+	if (!z_KeywordsFile)
+	{
+		throw ("Error at Scanner.Line49: " + a_Language + " is not supported as a starting language.");
+	}
 	z_Reader.parse(z_KeywordsFile, z_Root, false);
 	Json::Value::Members popnam = z_Root.getMemberNames();
 	int i = 0;
@@ -53,20 +56,30 @@ Scanner::Scanner(string a_FilePath)
 		m_KeywordTable.insert(make_pair(x, z_Root[x].asInt()));
 		++i;
 	}
+	z_KeywordsFile.close();
 
-	ifstream z_InputClassesFile("Tokanizers\\C#\\InputClasses_CSharp.json");
+	ifstream z_InputClassesFile("Tokanizers\\" + a_Language + "\\InputClasses_" + a_Language + ".json");
+	if (!z_InputClassesFile)
+	{
+		throw ("Error at Scanner.Line64: " + a_Language + " is not supported as a starting language.");
+	}
 	z_Reader.parse(z_InputClassesFile, z_Root, false);
 	string z_Result;
-	Json::Value& z_Inputs = z_Root["CSharpInputClasses"];
+	Json::Value& z_Inputs = z_Root[a_Language + "InputClasses"];
 	for (int i = 0; i < z_Inputs.size(); i++) 
 	{
 		z_Result = z_Inputs[i].asString();
 		m_InputClasses.push_back(z_Result);
 	}
+	z_InputClassesFile.close();
 
-	ifstream ifs("Tokanizers\\C#\\ScannerStateTables_CSharp.json");
-	z_Reader.parse(ifs, z_Root, false);
-	Json::Value& tables = z_Root["ScannerStateTables_CSharp"];
+	ifstream z_StateTablesFile("Tokanizers\\" + a_Language + "\\ScannerStateTables_" + a_Language + ".json");
+	if (!z_StateTablesFile)
+	{
+		throw ("Error at Scanner.Line79: " + a_Language + " is not supported as a starting language.");
+	}
+	z_Reader.parse(z_StateTablesFile, z_Root, false);
+	Json::Value& tables = z_Root["ScannerStateTables_" + a_Language];
 	for (int i = 0; i < tables.size(); i++) 
 	{
 		vector<vector<int>> stat;
@@ -81,6 +94,7 @@ Scanner::Scanner(string a_FilePath)
 			}
 		}
 	}
+	z_StateTablesFile.close();
 }
 
 unsigned int Scanner::GetInputCode()

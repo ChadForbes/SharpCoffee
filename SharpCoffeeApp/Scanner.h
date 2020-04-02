@@ -8,7 +8,7 @@ class Scanner
 {
 public:
 	Scanner();
-	Scanner(std::string a_FilePath);
+	Scanner(std::string a_FilePath, std::string a_Language = "CSharp");
 	~Scanner()
 	{
 		m_InputFile.close();

@@ -16,6 +16,9 @@ str
 -Individual tokens that make up everything
  */
 
+
+
+
 Translator::Translator(string inputFilePath) {
     //Scanner scanner(inputFilePath);
     javaString = "";

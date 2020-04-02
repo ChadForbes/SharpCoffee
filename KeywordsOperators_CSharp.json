@@ -10,6 +10,7 @@
   "Real Literal": -106,
   "Exponential Literal": -107,
   "Char Literal": -108,
+  "Whitespace": -110,
   //Identifiers:
   "identifier": 0,
   //Keywords:
