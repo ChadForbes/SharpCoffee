@@ -103,7 +103,7 @@
         "body": "long",
         "head": ""
     },
-
+    //check
     "ulong": {
         "body": "BigInteger",
         "head": "import java.math.BigInteger;"
@@ -205,5 +205,145 @@
     "Write": {
         "body": "print",
         "head": ""
-    }
+    },
+
+    //array declarations: none because they are functionally identical for basic arrays
+
+    //Abstract Methods: Identical syntax
+
+    //Anonymous Inner Classes: Generally outside scope
+
+    //Collection Initializers
+
+    //Lists
+    "List": {
+        "body": "ArrayList",
+        "Head": "import java.util.*;"
+    },
+
+    "<int>": {
+        "body": "<Integer>",
+        "head": ""
+    },
+
+    //Dictionary
+    "Dictionary": {
+        "body": "HashMap",
+        "head": "import java.util.*;"
+    },
+
+    //Collections
+
+    //ArrayList/Lists
+    "Insert": {
+        "body": "add",
+        "head": ""
+    },
+
+    //HashMaps/Dictionaries
+    "Count": {
+        "body": "size()",
+        "head": ""
+    },
+
+    "Remove": {
+        "body": "remove",
+        "head": ""
+    },
+
+    "[]": {
+        "body": "()",
+        "head": ""
+    },
+
+    //Constants, fields, and Local Viriables
+
+    //Inferred Types: var is identical
+
+    //Read-Only Field
+    "readonly": {
+        "body": "final",
+        "head": ""
+    },
+
+    //Constructors & Finalizers: outside our system so far
+
+    //Enums: C# doesn't have the same types of Enums aside from simple ones
+
+    //Event Handling: Excedingly complex for our scheme
+
+    //Extension Methods: Outside Scheme
+
+    //for each loop
+    "foreach": {
+        "body": "for"
+    },
+
+    "in": {
+        "body": ":"
+    },
+
+    //Functional Interfaces/Delegates
+    "delegate": {
+        "body": "interface"
+    },
+
+    //generics: outside basic scheme
+
+    //Import/Using
+    "using": {
+        "body": "import"
+    },
+
+    //Indexers: outside scope
+
+    //Inheritance
+
+    ":": {
+        "body": "extends"
+    },
+
+    "override": {
+        "body": "@Override"
+    },
+
+    "sealed": {
+        "body": "final"
+    },
+
+    //Interfaces: outside scheme
+
+    //Lambdas: only real difference is => vs -> but scheming that would be a bad idea
+
+    //Operator Overloading: outside scheme
+
+    //Optional Operators: not possible in java
+
+    //Packages and Namespaces
+    "Namespace": {
+        "body": "package"
+    },
+
+    //parameter Arrays: outside scheme
+
+    //Properties: outside scheme
+
+    //ref Parameters: outside scheme
+
+    //Static Constructors: essentially identical
+
+    //lock and synchronized
+    "lock": {
+        "body": "synchronized"
+    },
+
+    //Type Discovery
+    "is": {
+        "body": "instanceof"
+    },
+
+    //using/try with resources: cannot do both in our scheme
+
+    //multiline strings: outside scheme 
+
 }
