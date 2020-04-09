@@ -14,21 +14,22 @@ LOOK INTO MAPPING:
 Set the token value (z_TokenValue) to the current lexeme found in the keyword table (m_KeywordTable.find(m_CurrentLexeme))
  */
 
-Translator::Translator(string inputFilePath = "JavaFiles\\HelloWorld.java", string mappingFilePath = "CSharp_to_Java_Mapping.json") {
-    this->inputFilePath = inputFilePath;
+Translator::Translator(string outputFilePath = "JavaFiles\\HelloWorld.java", string mappingFilePath = "CSharp_to_Java_Mapping.json") {
+    this->outputFilePath = outputFilePath;
     this->mappingFilePath = mappingFilePath;
     javaFileString = "";
     HSB = "";
     BSB = "";
-    // Scanner scanner(inputFilePath);
+    Scanner scanner("");
 }
 
 Translator::Translator() {
-    inputFilePath = "JavaFiles\\HelloWorld.java";
+    outputFilePath = "JavaFiles\\HelloWorld.java";
     mappingFilePath = "CSharp_to_Java_Mapping.json";
     javaFileString = "";
     HSB = "";
     BSB = "";
+    Scanner scanner("");
 
     Json::Value root;
     Json::Reader reader;

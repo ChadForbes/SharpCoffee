@@ -7,7 +7,7 @@
 class Translator
 {
 private:
-	std::string inputFilePath;
+	std::string outputFilePath;
 	std::string mappingFilePath;
 	std::string javaFileString;
 	std::string HSB; // HeaderStringBuilder
@@ -17,7 +17,7 @@ private:
 	std::map<std::string, std::map<std::string, std::string>> m_Mapping;
 public:
 	Translator();
-	Translator(std::string inputFilePath = "JavaFiles\\HelloWorld.java", std::string mappingFilePath = "CSharp_to_Java_Mapping.json");
+	Translator(std::string outputFilePath = "JavaFiles\\HelloWorld.java", std::string mappingFilePath = "CSharp_to_Java_Mapping.json");
 	void translate();
 	void translateStr(std::string str, int numCode);
 	bool inMapping(std::string str);
