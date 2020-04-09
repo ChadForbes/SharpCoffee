@@ -1,97 +1,120 @@
 #include "Translator.h"
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <map>
+#include "json/json.h"
+#include <iterator>
 
 using namespace std;
 
 /*
-Strings: 
-javaString
--Comprised of HSB and BSB
-HSB (top)
--package, import statements
-BSB (bottom)
--methods, functions
-str
--Individual tokens that make up everything
+LOOK INTO MAPPING:
+Set the token value (z_TokenValue) to the current lexeme found in the keyword table (m_KeywordTable.find(m_CurrentLexeme))
  */
 
-
-
-
-Translator::Translator(string inputFilePath) {
-    //Scanner scanner(inputFilePath);
-    javaString = "";
+Translator::Translator(string inputFilePath = "JavaFiles\\HelloWorld.java", string mappingFilePath = "CSharp_to_Java_Mapping.json") {
+    this->inputFilePath = inputFilePath;
+    this->mappingFilePath = mappingFilePath;
+    javaFileString = "";
     HSB = "";
     BSB = "";
+    // Scanner scanner(inputFilePath);
 }
 
 Translator::Translator() {
-    javaString = "";
+    inputFilePath = "JavaFiles\\HelloWorld.java";
+    mappingFilePath = "CSharp_to_Java_Mapping.json";
+    javaFileString = "";
     HSB = "";
     BSB = "";
+
+    Json::Value root;
+    Json::Reader reader;
+    ifstream ifs(mappingFilePath);
+    reader.parse(ifs, root, false);
+    Json::Value::Members popnam = root.getMemberNames();
+    Json::Value::Members membername;
+
+    for (string x : popnam) {
+        membername = root[x].getMemberNames();
+        m_Mapping.insert(make_pair(x, map<string, string>()));
+        for (string y : membername) {
+            m_Mapping[x].insert(make_pair(y, root[x][y].asString()));
+        }
+    }
+}
+
+void Translator::translate() {
+
+
+    /*
+    Call NextLexeme() first, then get m_CurrentLexeme;
+
+    The NextLexeme() function is what the Translator will be calling.
+    After each call to the NextLexeme() function the value of m_CurrentLexeme will be
+    the string version of the most recently read token.
+
+    while(scanner.m_CurrentLexeme != "EOF") {
+        int numCode = scanner.NextLexeme();
+        string str = scanner.m_CurrentLexeme;
+        Translator.translate(str, numCode);
+    }
+    javaString = HSB + "\n" + BSB;
+    */
 }
 
 
-void Translator::translate(string str, int numCode) {
-    /*
-    Declare a Scanner(file path to C# file), javaString = HSB + BSB
-    write entire javaString to the java file
-    */
+void Translator::translateStr(string str, int numCode) {    
+    // str is a keyword/operator
     if (numCode >= 0) {
-        /* If the numeric code is 0 or greater, str is either a keyword or an
-        operator.
-
-        Take str and search the mapping. If str is found in the mapping
-        (inMapping(str) returns true), append the Java version of str to
-        BSB
-        */
         if (inMapping(str)) {
-            BSB += toJavaString(str) + " ";
-            // if (there is header info) {
-            //  HSB += toJavaString(strHeader);
-            // }
-        } // if str is not found in the mapping, just append it as is to the
-          // BSB
-        else if (!inMapping(str)) {
-            BSB += str + " ";
+            BSB += toJavaString(str);
+            getHeaderInfo(str);
         }
-    } else if (numCode < 0) { // If numCode is less than 0, str is a literal
+        else if (!inMapping(str)) {
+            BSB += str;
+        }
+     // str is a literal
+    } else if (numCode < 0) {
         if (inMapping(numCode)) {
-            BSB += toJavaString(str) + " ";
+            BSB += toJavaString(str);
             // if (there is header info) {
             //  HSB += toJavaString(strHeader);
             // }
         }
         else if (!inMapping(numCode)) {
-            BSB += str + " ";
+            BSB += str;
         }
     }
-    
-    /*
-    */
-    //writeToJavaFile(javaStr);
 }
 
 bool Translator::inMapping(string str) {
-    return true;
+    if (m_Mapping.find(str) != m_Mapping.end()) {
+        return true;
+    }
+    else return false;
 }
 
 bool Translator::inMapping(int numCode) {
     return true;
 }
 
+void Translator::getHeaderInfo(string str) {
+    map<string, string> javaMap = m_Mapping.find(str)->second;
+    HSB += javaMap.begin()->second;
+}
+
 string Translator::toJavaString(std::string str) {
-    return str;
+    map<string, string> javaMap = m_Mapping.find(str)->second;
+
+    return javaMap.begin()->first;
 }
 
 /*
 Scanner("JavaFiles\\HelloWorld.java");
 Scanner returns a STRING and a NUMERIC CODE
 -> (STRING, NUMERIC CODE) i.e., "int 57"
-
-Append each line to the big string, then write the entire thing to a java
-file
 
 public void Translate(string str, int numCode)
 {
