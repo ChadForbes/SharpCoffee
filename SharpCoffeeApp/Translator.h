@@ -21,7 +21,7 @@ public:
 	void translate();
 	void translateStr(std::string str, int numCode);
 	bool inMapping(std::string str);
-	bool inMapping(int numCode);
+	// bool inMapping(int numCode);
 	void getHeaderInfo(std::string str);
 	std::string toJavaString(std::string str);
 };

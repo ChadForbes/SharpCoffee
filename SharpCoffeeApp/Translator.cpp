@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <map>
 #include "json/json.h"
 #include <iterator>
@@ -46,7 +47,12 @@ Translator::Translator() {
 }
 
 void Translator::translate() {
-
+    while(scanner.m_CurrentLexeme != "EOF") {
+        int numCode = scanner.NextLexeme();
+        string str = scanner.m_CurrentLexeme;
+        translateStr(str, numCode);
+    }
+    javaString = HSB + "\n" + BSB;
 
     /*
     Call NextLexeme() first, then get m_CurrentLexeme;
@@ -55,12 +61,6 @@ void Translator::translate() {
     After each call to the NextLexeme() function the value of m_CurrentLexeme will be
     the string version of the most recently read token.
 
-    while(scanner.m_CurrentLexeme != "EOF") {
-        int numCode = scanner.NextLexeme();
-        string str = scanner.m_CurrentLexeme;
-        Translator.translate(str, numCode);
-    }
-    javaString = HSB + "\n" + BSB;
     */
 }
 
@@ -77,13 +77,12 @@ void Translator::translateStr(string str, int numCode) {
         }
      // str is a literal
     } else if (numCode < 0) {
-        if (inMapping(numCode)) {
+        string numCodeStr = to_string(numCode);
+        if (inMapping(numCodeStr)) {
             BSB += toJavaString(str);
-            // if (there is header info) {
-            //  HSB += toJavaString(strHeader);
-            // }
+            getHeaderInfo(str);
         }
-        else if (!inMapping(numCode)) {
+        else if (!inMapping(numCodeStr)) {
             BSB += str;
         }
     }
@@ -96,9 +95,12 @@ bool Translator::inMapping(string str) {
     else return false;
 }
 
+/*
 bool Translator::inMapping(int numCode) {
+    string numCodeStr = to_string(numCode);
     return true;
 }
+*/
 
 void Translator::getHeaderInfo(string str) {
     map<string, string> javaMap = m_Mapping.find(str)->second;
