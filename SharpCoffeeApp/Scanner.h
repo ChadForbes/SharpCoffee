@@ -7,12 +7,16 @@
 class Scanner
 {
 public:
-	Scanner();
-	Scanner(std::string a_FilePath, std::string a_Language = "CSharp");
+	Scanner() {};
+	Scanner(std::string a_FilePath, std::string a_Language = "CSharp") 
+	{ 
+		Init(a_FilePath, a_Language); 
+	}
 	~Scanner()
 	{
 		m_InputFile.close();
 	}
+	void Init(std::string a_FilePath, std::string a_Language = "CSharp");
 
 	std::ifstream m_InputFile;
 	std::string m_CurrentLexeme = "";

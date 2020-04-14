@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Scanner::Scanner(string a_FilePath, string a_Language = "CSharp")
+void Scanner::Init(string a_FilePath, string a_Language)
 {
 	m_InputFile.open(a_FilePath);
 	if (m_InputFile)
