@@ -3,27 +3,37 @@
 #define Translator_H
 #include <string>
 #include <map>
+#include "Scanner.h"
 
 class Translator
 {
 private:
-	std::string outputFilePath;
-	std::string mappingFilePath;
-	std::string javaFileString;
-	std::string HSB; // HeaderStringBuilder
-	std::string BSB; // BodyStringBuilder
-	//std::ifstream mapping;
-	//			C# token	map	(	Java token,	Java header info	)
+	std::string m_inputFilePath;
+	std::string m_outputFilePath;
+	std::string m_inputLanguage;
+	std::string m_outputLanguage;
+
+	std::string m_mappingFilePath;
+
+	std::string m_javaFileString;
+	std::string m_HSB; // HeaderStringBuilder
+	std::string m_BSB; // BodyStringBuilder
+
+	Scanner scanner;
+
 	std::map<std::string, std::map<std::string, std::string>> m_Mapping;
 public:
 	Translator();
-	Translator(std::string outputFilePath = "JavaFiles\\HelloWorld.java", std::string mappingFilePath = "CSharp_to_Java_Mapping.json");
+	Translator(	std::string a_inputFilePath,
+				std::string a_outputFilePath = "JavaFiles\\HelloWorld.java",
+				std::string a_inputLanguage = "CSharp",
+				std::string a_outputLanguage = "Java");
+
 	void translate();
 	void translateStr(std::string str, int numCode);
 	bool inMapping(std::string str);
-	// bool inMapping(int numCode);
 	void getHeaderInfo(std::string str);
-	std::string toJavaString(std::string str);
+	std::string m_toJavaString(std::string str);
 };
 
 #endif // !Translator_H
