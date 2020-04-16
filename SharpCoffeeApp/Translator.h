@@ -33,7 +33,7 @@ public:
 	void translateStr(std::string str, int numCode);
 	bool inMapping(std::string str);
 	void getHeaderInfo(std::string str);
-	std::string m_toJavaString(std::string str);
+	std::string toJavaString(std::string str);
 };
 
 #endif // !Translator_H

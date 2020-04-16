@@ -9,12 +9,6 @@
 
 using namespace std;
 
-/*
-LOOK INTO MAPPING:
-Set the token value (z_TokenValue) to the current lexeme found in the keyword table (m_KeywordTable.find(m_CurrentLexeme))
- */
-
-// Translator constructor set to translate Hello World
 Translator::Translator() {
     m_inputFilePath = "..\\TestPrograms\\CSharp\\HelloWorld.cs";
     m_outputFilePath = "JavaFiles\\HelloWorld.java";
@@ -33,6 +27,7 @@ Translator::Translator() {
     Json::Value z_Root;
     ifstream z_ifs(m_mappingFilePath);
     z_Reader.parse(z_ifs, z_Root, false);
+
     Json::Value::Members popnam = z_Root.getMemberNames();
     Json::Value::Members membername;
 
@@ -58,7 +53,8 @@ Translator::Translator(string a_inputFilePath, string a_outputFilePath, string a
     m_HSB = "";
     m_BSB = "";
 
-    scanner = new Scanner(a_inputFilePath);
+    scanner.Init(m_inputFilePath);
+    // scanner = new Scanner(m_inputFilePath);
 
     Json::Reader z_Reader;
     Json::Value z_Root;
@@ -91,16 +87,14 @@ void Translator::translate() {
     The NextLexeme() function is what the Translator will be calling.
     After each call to the NextLexeme() function the value of m_CurrentLexeme will be
     the string version of the most recently read token.
-
     */
 }
-
 
 void Translator::translateStr(string a_str, int a_numCode) {
     // str is a keyword/operator
     if (a_numCode >= 0) {
         if (inMapping(a_str)) {
-            m_BSB += m_toJavaString(a_str);
+            m_BSB += toJavaString(a_str);
             getHeaderInfo(a_str);
         }
         else if (!inMapping(a_str)) {
@@ -110,7 +104,7 @@ void Translator::translateStr(string a_str, int a_numCode) {
     } else if (a_numCode < 0) {
         string numCodeStr = to_string(a_numCode);
         if (inMapping(numCodeStr)) {
-            m_BSB += m_toJavaString(a_str);
+            m_BSB += toJavaString(a_str);
             getHeaderInfo(a_str);
         }
         else if (!inMapping(numCodeStr)) {
@@ -128,13 +122,15 @@ bool Translator::inMapping(string a_str) {
 
 void Translator::getHeaderInfo(string a_str) {
     map<string, string> z_javaMap = m_Mapping.find(a_str)->second;
-    m_HSB += z_javaMap.begin()->second;
+    m_HSB += z_javaMap.find("head")->second;
+    // m_HSB += z_javaMap.begin()->second;
 }
 
-string Translator::m_toJavaString(std::string a_str) {
+string Translator::toJavaString(std::string a_str) {
     map<string, string> z_javaMap = m_Mapping.find(a_str)->second;
 
-    return z_javaMap.begin()->first;
+    return z_javaMap.find("body")->second;
+    // return z_javaMap.begin()->first;
 }
 
 /*
