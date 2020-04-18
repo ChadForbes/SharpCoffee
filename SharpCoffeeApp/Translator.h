@@ -9,7 +9,7 @@ class Translator
 {
 private:
 	std::string m_inputFilePath;
-	std::string m_outputFilePath;
+	// std::string m_outputFilePath;
 	std::string m_inputLanguage;
 	std::string m_outputLanguage;
 
@@ -25,7 +25,7 @@ private:
 public:
 	Translator();
 	Translator(	std::string a_inputFilePath,
-				std::string a_outputFilePath = "JavaFiles\\HelloWorld.java",
+				// std::string a_outputFilePath = "JavaFiles\\HelloWorld.java",
 				std::string a_inputLanguage = "CSharp",
 				std::string a_outputLanguage = "Java");
 

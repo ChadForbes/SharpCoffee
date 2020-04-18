@@ -9,9 +9,10 @@
 
 using namespace std;
 
+// No longer necessary to take in output file path
 Translator::Translator() {
     m_inputFilePath = "..\\TestPrograms\\CSharp\\HelloWorld.cs";
-    m_outputFilePath = "JavaFiles\\HelloWorld.java";
+    // m_outputFilePath = "JavaFiles\\HelloWorld.java";
     m_inputLanguage = "CSharp";
     m_outputLanguage = "Java";
 
@@ -41,9 +42,9 @@ Translator::Translator() {
     }
 }
 
-Translator::Translator(string a_inputFilePath, string a_outputFilePath, string a_inputLanguage, string a_outputLanguage) {
+Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_outputLanguage) {
     m_inputFilePath = a_inputFilePath;
-    m_outputFilePath = a_outputFilePath;
+    // m_outputFilePath = a_outputFilePath;
     m_inputLanguage = a_inputLanguage;
     m_outputLanguage = a_outputLanguage;
 
@@ -80,6 +81,9 @@ void Translator::translate() {
         translateStr(z_str, z_numCode);
     }
     m_javaFileString = m_HSB + "\n" + m_BSB;
+
+    // Write translated code to console
+    cout << m_javaFileString;
 
     /*
     Call NextLexeme() first, then get m_CurrentLexeme;
@@ -134,41 +138,24 @@ string Translator::toJavaString(std::string a_str) {
 }
 
 /*
-Scanner("JavaFiles\\HelloWorld.java");
-Scanner returns a STRING and a NUMERIC CODE
--> (STRING, NUMERIC CODE) i.e., "int 57"
+Current issues:
+* Replace "using" with "import"
+* If "using System;", just ignore
+* Find a way to ignore namespace declaration and first set of curly braces
+* "public" being deleted instead of just being ignored
 
-public void Translate(string str, int numCode)
+Current output:
+
+using System;
+
+namespace HelloWorld
 {
-   if (numCode >= 0) // If the numeric code is 0 or greater
-   {
-        // The STRING is either a keyword or an operator.
-       bool inMapping = SearchMapping(str); // Take the STRING and search the mapping
-       if (inMapping == true) // If the string is found in the mapping
-       {
-           Append the Java version of the STRING to the
-           body string builder
-           Append any header info to the header string builder
-       }
-       else if (STRING is not found in the mapping)
-       {
-           Return the STRING to the body string builder
-       }
-   }
-   if (the NUMERIC CODE is less than 0)
-   {
-       The STRING is a literal
-       Take the NUMERIC CODE and search the mapping
-       if (the NUMERIC CODE is found in the mapping)
-       {
-           Append the Java version of the STRING to the
-           body string builder
-           Append any header info to the header string builder
-       }
-       else if (the NUMERIC CODE is not found in the mapping)
-       {
-           Return the STRING to the body string builder
-       }
-   }
+    class HelloWorld
+    {
+        static void main(String[] args)(string[] args)
+        {
+            System.out.println("Hello World!");
+        }
+    }
 }
 */
