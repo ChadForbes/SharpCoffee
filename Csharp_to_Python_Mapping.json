@@ -1,0 +1,126 @@
+{
+    "public": {
+        "body": "def",
+        "head": ""
+    },   
+    "private": {
+        "body": "def",
+        "head": ""
+    },    
+    "int":{
+        "body": "",
+        "head": ""
+    },   
+    "string":{
+        "body": "",
+        "head": ""
+    },   
+    "bool":{
+        "body": "",
+        "head": ""
+    },    
+    "void":{
+        "body": "",
+        "head": ""
+    }, 
+    ";":{
+        "body": "",
+        "head": ""
+    },	
+	"//":{
+        "body": "#",
+        "head": ""
+    },
+	"Console.WriteLine":{
+        "body": "print",
+        "head": ""
+    },	
+	"++":{
+        "body": "+1",
+        "head": ""
+    },
+	"--":{
+        "body": "-1",
+        "head": ""
+    },
+	"{":{
+        "body": ":",
+        "head": ""
+    },
+	"}":{
+        "body": "",
+        "head": ""
+    },
+	
+	// Math
+	
+	"Math.Sqrt":{
+        "body": "math.sqrt",
+        "head": ""
+    },	
+	
+	"Math.Abs":{
+        "body": "math.fabs",
+        "head": ""
+    },		
+	
+	"Math.Acos":{
+        "body": "math.acos",
+        "head": ""
+    },	
+	
+	"Math.Asin":{
+        "body": "math.asin",
+        "head": ""
+    },	
+	
+	"Math.Atan":{
+        "body": "math.atan",
+        "head": ""
+    },		
+	
+	"Math.Atan2":{
+        "body": "math.atan2",
+        "head": ""
+    },	
+	
+	"Math.Ceiling":{
+        "body": "math.ceil",
+        "head": ""
+    },		
+	
+	"Math.Cos":{
+        "body": "math.cos",
+        "head": ""
+    },
+	
+	"Math.Cosh":{
+        "body": "math.Cosh",
+        "head": ""
+    },
+	
+	"Math.Exp":{
+        "body": "math.exp",
+        "head": ""
+    },
+	
+	"Math.Sin":{
+        "body": "math.sin",
+        "head": ""
+    },
+	
+	"Math.Sinh":{
+        "body": "math.sinh",
+        "head": ""
+    },
+	
+	"Math.Tan":{
+        "body": "math.tan",
+        "head": ""
+    },
+	
+	"Math.Tanh":{
+        "body": "math.tanh",
+        "head": ""
+    },
+}
