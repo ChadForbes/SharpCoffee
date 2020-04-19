@@ -75,23 +75,49 @@ Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_
 }
 
 void Translator::translate() {
-    while (scanner.m_CurrentLexeme != "EOF") {
-        int z_numCode = scanner.NextLexeme();
-        string z_str = scanner.m_CurrentLexeme;
+    string z_prevStr = scanner.m_CurrentLexeme;
+    // string z_publicStr = "";
+    int z_numCode = scanner.NextLexeme();
+    string z_str = scanner.m_CurrentLexeme;
+
+    while (z_numCode != -1) {
+        z_prevStr = scanner.m_CurrentLexeme;
+        z_numCode = scanner.NextLexeme();
+        z_str = scanner.m_CurrentLexeme;
+
+        // Code to fix "public" issues for C#
+        if (m_inputLanguage == "CSharp") {
+            if (z_str == "class") {
+                if (z_prevStr != "private" || z_prevStr != "protected") {
+                    m_BSB += "public ";
+                }
+            }
+            if (z_str == "main") {
+            // If "main" is found, go back 19 indices to see if public is there
+                size_t index = m_BSB.find("main");
+                // If "public" isn't already there, add it
+                if (m_BSB.substr(index - 19, 6) != "public") { // The possible index of "public"
+                    m_BSB.insert(index - 12, "public "); // Insert before "static"
+                }
+            }
+
+            /*
+            if (z_str == "public") {
+                z_publicStr = "public";
+            }
+
+            if (z_str == "main" && z_publicStr != "public") { // Add "public" only if it's not already there
+                size_t index = m_BSB.find("main") - 12; // "static void " is 12 spaces long
+                m_BSB.insert(index, "public "); // Insert "public " where the index of "static void " starts
+                z_publicStr = "";
+            }
+            */
+        }
         translateStr(z_str, z_numCode);
     }
     m_javaFileString = m_HSB + "\n" + m_BSB;
 
-    // Write translated code to console
     cout << m_javaFileString;
-
-    /*
-    Call NextLexeme() first, then get m_CurrentLexeme;
-
-    The NextLexeme() function is what the Translator will be calling.
-    After each call to the NextLexeme() function the value of m_CurrentLexeme will be
-    the string version of the most recently read token.
-    */
 }
 
 void Translator::translateStr(string a_str, int a_numCode) {
