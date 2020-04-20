@@ -9,13 +9,12 @@ class Translator
 {
 private:
 	std::string m_inputFilePath;
-	// std::string m_outputFilePath;
 	std::string m_inputLanguage;
 	std::string m_outputLanguage;
 
 	std::string m_mappingFilePath;
 
-	std::string m_javaFileString;
+	std::string m_outputFileString;
 	std::string m_HSB; // HeaderStringBuilder
 	std::string m_BSB; // BodyStringBuilder
 
@@ -25,15 +24,14 @@ private:
 public:
 	Translator();
 	Translator(	std::string a_inputFilePath,
-				// std::string a_outputFilePath = "JavaFiles\\HelloWorld.java",
 				std::string a_inputLanguage = "CSharp",
-				std::string a_outputLanguage = "Java");
+				std::string a_outputLanguage = "output");
 
 	void translate();
 	void translateStr(std::string str, int numCode);
 	bool inMapping(std::string str);
 	void getHeaderInfo(std::string str);
-	std::string toJavaString(std::string str);
+	std::string toOutputString(std::string str);
 };
 
 #endif // !Translator_H

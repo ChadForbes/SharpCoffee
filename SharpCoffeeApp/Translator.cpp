@@ -52,7 +52,7 @@ Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_
 
     m_mappingFilePath = "Mappings\\" + m_inputLanguage + "_to_" + m_outputLanguage + "_Mapping.json";
 
-    m_javaFileString = "";
+    m_outputFileString = "";
     m_HSB = "";
     m_BSB = "";
 
@@ -76,10 +76,12 @@ Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_
 }
 
 void Translator::translate() {
-    int z_numCode = scanner.NextLexeme();
-    string z_str = scanner.m_CurrentLexeme;
+    string z_prevStr = "";
+    int z_numCode = 0;
+    string z_str = "";
 
     while (z_numCode != -1) {
+        z_prevStr = z_str;
         z_numCode = scanner.NextLexeme();
         z_str = scanner.m_CurrentLexeme;
 
@@ -114,15 +116,15 @@ void Translator::translate() {
         m_BSB.replace(found, 1, "");
     }
 
-    m_javaFileString = m_HSB + "\n" + m_BSB;
-    cout << m_javaFileString;
+    m_outputFileString = m_HSB + "\n" + m_BSB;
+    cout << m_outputFileString;
 }
 
 void Translator::translateStr(string a_str, int a_numCode) {
     // str is a keyword/operator
     if (a_numCode >= 0) {
         if (inMapping(a_str)) {
-            m_BSB += toJavaString(a_str);
+            m_BSB += toOutputString(a_str);
             getHeaderInfo(a_str);
         }
         else if (!inMapping(a_str)) {
@@ -132,7 +134,7 @@ void Translator::translateStr(string a_str, int a_numCode) {
     } else if (a_numCode < 0) {
         string numCodeStr = to_string(a_numCode);
         if (inMapping(numCodeStr)) {
-            m_BSB += toJavaString(numCodeStr);
+            m_BSB += toOutputString(numCodeStr);
             getHeaderInfo(numCodeStr);
         }
         else if (!inMapping(numCodeStr)) {
@@ -149,13 +151,13 @@ bool Translator::inMapping(string a_str) {
 }
 
 void Translator::getHeaderInfo(string a_str) {
-    map<string, string> z_javaMap = m_Mapping.find(a_str)->second;
-    m_HSB += z_javaMap.find("head")->second;
+    map<string, string> z_outputMap = m_Mapping.find(a_str)->second;
+    m_HSB += z_outputMap.find("head")->second;
 }
 
-string Translator::toJavaString(std::string a_str) {
-    map<string, string> z_javaMap = m_Mapping.find(a_str)->second;
-    return z_javaMap.find("body")->second;
+string Translator::toOutputString(std::string a_str) {
+    map<string, string> z_outputMap = m_Mapping.find(a_str)->second;
+    return z_outputMap.find("body")->second;
 }
 
 /*
