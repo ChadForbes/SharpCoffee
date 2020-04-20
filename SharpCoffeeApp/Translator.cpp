@@ -136,7 +136,7 @@ void Translator::translateStr(string a_str, int a_numCode) {
             getHeaderInfo(numCodeStr);
         }
         else if (!inMapping(numCodeStr)) {
-            m_BSB += numCodeStr;
+            m_BSB += a_str;
         }
     }
 }
