@@ -8,8 +8,11 @@
 #include <iterator>
 
 using namespace std;
-
-// No longer necessary to take in output file path
+/*
+My idea would that we would switch to a certain translation protocol based on which language we are translating to.
+We could actually leave the main translation function mostly alone if we handle issues like the "public" or 
+"namespace" ones in a preprocessing function that then hands the edited C# code to the translation function.
+*/
 Translator::Translator() {
     m_inputFilePath = "..\\TestPrograms\\CSharp\\HelloWorld.cs";
     // m_outputFilePath = "JavaFiles\\HelloWorld.java";
@@ -44,7 +47,6 @@ Translator::Translator() {
 
 Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_outputLanguage) {
     m_inputFilePath = a_inputFilePath;
-    // m_outputFilePath = a_outputFilePath;
     m_inputLanguage = a_inputLanguage;
     m_outputLanguage = a_outputLanguage;
 
@@ -55,7 +57,6 @@ Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_
     m_BSB = "";
 
     scanner.Init(m_inputFilePath);
-    // scanner = new Scanner(m_inputFilePath);
 
     Json::Reader z_Reader;
     Json::Value z_Root;
@@ -75,13 +76,10 @@ Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_
 }
 
 void Translator::translate() {
-    string z_prevStr = scanner.m_CurrentLexeme;
-    // string z_publicStr = "";
     int z_numCode = scanner.NextLexeme();
     string z_str = scanner.m_CurrentLexeme;
 
     while (z_numCode != -1) {
-        z_prevStr = scanner.m_CurrentLexeme;
         z_numCode = scanner.NextLexeme();
         z_str = scanner.m_CurrentLexeme;
 
@@ -93,30 +91,30 @@ void Translator::translate() {
                 }
             }
             if (z_str == "main") {
-            // If "main" is found, go back 19 indices to see if public is there
+                // If "main" is found, go back 19 indices to see if public is there
                 size_t index = m_BSB.find("main");
                 // If "public" isn't already there, add it
                 if (m_BSB.substr(index - 19, 6) != "public") { // The possible index of "public"
                     m_BSB.insert(index - 12, "public "); // Insert before "static"
                 }
             }
-
-            /*
-            if (z_str == "public") {
-                z_publicStr = "public";
+            // Skip over the namespace portion
+            if (z_str == "namespace") { // Current lexeme is "namespace"
+                z_numCode = scanner.NextLexeme(); // Current lexeme is the project name ("HelloWorld")
+                z_numCode = scanner.NextLexeme(); // Current lexeme is "{"
+                z_numCode = scanner.NextLexeme(); // Current lexeme is "class" or whatever is after the curly brace
             }
-
-            if (z_str == "main" && z_publicStr != "public") { // Add "public" only if it's not already there
-                size_t index = m_BSB.find("main") - 12; // "static void " is 12 spaces long
-                m_BSB.insert(index, "public "); // Insert "public " where the index of "static void " starts
-                z_publicStr = "";
-            }
-            */
         }
         translateStr(z_str, z_numCode);
     }
-    m_javaFileString = m_HSB + "\n" + m_BSB;
 
+    int i = m_BSB.length;
+    size_t found = m_BSB.rfind("}");
+    if (found != std::string::npos) {
+        m_BSB.replace(found, 1, "");
+    }
+
+    m_javaFileString = m_HSB + "\n" + m_BSB;
     cout << m_javaFileString;
 }
 
@@ -134,11 +132,11 @@ void Translator::translateStr(string a_str, int a_numCode) {
     } else if (a_numCode < 0) {
         string numCodeStr = to_string(a_numCode);
         if (inMapping(numCodeStr)) {
-            m_BSB += toJavaString(a_str);
-            getHeaderInfo(a_str);
+            m_BSB += toJavaString(numCodeStr);
+            getHeaderInfo(numCodeStr);
         }
         else if (!inMapping(numCodeStr)) {
-            m_BSB += a_str;
+            m_BSB += numCodeStr;
         }
     }
 }
@@ -153,14 +151,11 @@ bool Translator::inMapping(string a_str) {
 void Translator::getHeaderInfo(string a_str) {
     map<string, string> z_javaMap = m_Mapping.find(a_str)->second;
     m_HSB += z_javaMap.find("head")->second;
-    // m_HSB += z_javaMap.begin()->second;
 }
 
 string Translator::toJavaString(std::string a_str) {
     map<string, string> z_javaMap = m_Mapping.find(a_str)->second;
-
     return z_javaMap.find("body")->second;
-    // return z_javaMap.begin()->first;
 }
 
 /*
