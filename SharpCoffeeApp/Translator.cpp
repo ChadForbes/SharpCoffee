@@ -9,19 +9,18 @@
 
 using namespace std;
 /*
-My idea would that we would switch to a certain translation protocol based on which language we are translating to.
-We could actually leave the main translation function mostly alone if we handle issues like the "public" or 
+Switch to a certain translation protocol based on which language we are translating to.
+Leave the main translation function mostly alone if we handle issues like the "public" or 
 "namespace" ones in a preprocessing function that then hands the edited C# code to the translation function.
 */
 Translator::Translator() {
     m_inputFilePath = "..\\TestPrograms\\CSharp\\HelloWorld.cs";
-    // m_outputFilePath = "JavaFiles\\HelloWorld.java";
     m_inputLanguage = "CSharp";
     m_outputLanguage = "Java";
 
     m_mappingFilePath = "Mappings\\" + m_inputLanguage + "_to_" + m_outputLanguage + "_Mapping.json";
 
-    m_javaFileString = "";
+    m_outputFileString = "";
     m_HSB = "";
     m_BSB = "";
 
@@ -84,7 +83,7 @@ void Translator::translate() {
         z_prevStr = z_str;
         z_numCode = scanner.NextLexeme();
         z_str = scanner.m_CurrentLexeme;
-
+        /*
         // Code to fix "public" issues for C#
         if (m_inputLanguage == "CSharp") {
             if (z_str == "class") {
@@ -100,21 +99,24 @@ void Translator::translate() {
                     m_BSB.insert(index - 12, "public "); // Insert before "static"
                 }
             }
-            // Skip over the namespace portion
-            if (z_str == "namespace") { // Current lexeme is "namespace"
-                z_numCode = scanner.NextLexeme(); // Current lexeme is the project name ("HelloWorld")
-                z_numCode = scanner.NextLexeme(); // Current lexeme is "{"
-                z_numCode = scanner.NextLexeme(); // Current lexeme is "class" or whatever is after the curly brace
+            // Skip over "namespace", project name, and opening curly brace
+            if (z_str == "namespace") {             // Current lexeme is "namespace"
+                z_numCode = scanner.NextLexeme();   // Current lexeme is the project name ("HelloWorld")
+                z_numCode = scanner.NextLexeme();   // Current lexeme is "{"
+                z_numCode = scanner.NextLexeme();   // Current lexeme is "class" or whatever is after the curly brace
             }
         }
+        */
         translateStr(z_str, z_numCode);
     }
-
+    /*
+    // Skip over closing curly brace of "namespace"
     int i = m_BSB.length;
     size_t found = m_BSB.rfind("}");
     if (found != std::string::npos) {
         m_BSB.replace(found, 1, "");
     }
+    */
 
     m_outputFileString = m_HSB + "\n" + m_BSB;
     cout << m_outputFileString;
