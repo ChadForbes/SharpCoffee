@@ -8,11 +8,36 @@
 #include <iterator>
 
 using namespace std;
+
 /*
+Current issues:
+* Currently it is producing output almost never on the first click and most of the time on the second click.
+* Replace "using" with "import"
+* If "using System;", just ignore
+* Find a way to ignore namespace declaration and first set of curly braces
+* "public" being deleted instead of just being ignored
+
+Current output:
+
+using System;
+
+namespace HelloWorld
+{
+    class HelloWorld
+    {
+        static void main(String[] args)(string[] args)
+        {
+            System.out.println("Hello World!");
+        }
+    }
+}
+
+
 Switch to a certain translation protocol based on which language we are translating to.
 Leave the main translation function mostly alone if we handle issues like the "public" or 
 "namespace" ones in a preprocessing function that then hands the edited C# code to the translation function.
 */
+
 Translator::Translator() {
     m_inputFilePath = "..\\TestPrograms\\CSharp\\HelloWorld.cs";
     m_inputLanguage = "CSharp";
@@ -24,7 +49,7 @@ Translator::Translator() {
     m_HSB = "";
     m_BSB = "";
 
-    scanner = new Scanner(m_inputFilePath);
+    scanner.Init(m_inputFilePath);
 
     Json::Reader z_Reader;
     Json::Value z_Root;
@@ -83,7 +108,6 @@ void Translator::translate() {
         z_prevStr = z_str;
         z_numCode = scanner.NextLexeme();
         z_str = scanner.m_CurrentLexeme;
-        /*
         // Code to fix "public" issues for C#
         if (m_inputLanguage == "CSharp") {
             if (z_str == "class") {
@@ -106,20 +130,21 @@ void Translator::translate() {
                 z_numCode = scanner.NextLexeme();   // Current lexeme is "class" or whatever is after the curly brace
             }
         }
+        /*
         */
         translateStr(z_str, z_numCode);
     }
-    /*
     // Skip over closing curly brace of "namespace"
     int i = m_BSB.length;
     size_t found = m_BSB.rfind("}");
     if (found != std::string::npos) {
         m_BSB.replace(found, 1, "");
     }
+    /*
     */
 
     m_outputFileString = m_HSB + "\n" + m_BSB;
-    cout << m_outputFileString;
+    // cout << m_outputFileString;
 }
 
 void Translator::translateStr(string a_str, int a_numCode) {
@@ -161,26 +186,3 @@ string Translator::toOutputString(std::string a_str) {
     map<string, string> z_outputMap = m_Mapping.find(a_str)->second;
     return z_outputMap.find("body")->second;
 }
-
-/*
-Current issues:
-* Replace "using" with "import"
-* If "using System;", just ignore
-* Find a way to ignore namespace declaration and first set of curly braces
-* "public" being deleted instead of just being ignored
-
-Current output:
-
-using System;
-
-namespace HelloWorld
-{
-    class HelloWorld
-    {
-        static void main(String[] args)(string[] args)
-        {
-            System.out.println("Hello World!");
-        }
-    }
-}
-*/

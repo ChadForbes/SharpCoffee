@@ -14,7 +14,7 @@ private:
 
 	std::string m_mappingFilePath;
 
-	std::string m_outputFileString;
+	// std::string m_outputFileString;
 	std::string m_HSB; // HeaderStringBuilder
 	std::string m_BSB; // BodyStringBuilder
 
@@ -32,6 +32,7 @@ public:
 	bool inMapping(std::string str);
 	void getHeaderInfo(std::string str);
 	std::string toOutputString(std::string str);
+	std::string m_outputFileString;
 };
 
 #endif // !Translator_H
