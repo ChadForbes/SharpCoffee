@@ -28,10 +28,12 @@ public:
 				std::string a_outputLanguage = "output");
 
 	void translate();
-	void translateStr(std::string str, int numCode);
+	void translateStr(std::string a_str, int a_numCode);
 	bool inMapping(std::string str);
-	void getHeaderInfo(std::string str);
-	std::string toOutputString(std::string str);
+	// void getHeaderInfo(std::string str);
+	std::string m_outputHeaderString(std::string str);
+	std::string m_outputBodyString(std::string str);
+	// std::string toOutputString(std::string str);
 	std::string m_outputFileString;
 };
 
