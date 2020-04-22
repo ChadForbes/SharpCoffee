@@ -124,6 +124,7 @@ void Translator::translate() {
     while (z_numCode != -1) {
         z_prevStr = z_str;
         z_numCode = scanner.NextLexeme();
+        z_str = scanner.m_CurrentLexeme;
 
         // Code to fix "public" issues from C# to Java
         if (m_outputLanguage == "Java") {
