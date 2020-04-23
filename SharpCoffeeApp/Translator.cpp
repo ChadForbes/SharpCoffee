@@ -11,13 +11,27 @@ using namespace std;
 
 /*
 Current issues:
-* Currently it is producing output almost never on the first click and most of the time on the second click.
-* Replace "using" with "import"
-* If "using System;", just ignore
-* Find a way to ignore namespace declaration and first set of curly braces
-* "public" being deleted instead of just being ignored
+* "using" not translating
+* "System" for printing being deleted instead of just being ignored
 
 Current output:
+
+package HelloWorld;
+
+
+
+using System;
+
+{
+	public class HelloWorld
+	{
+		public static void main(String[] args)
+		{
+			out.println("Hello World!");
+		}
+	}
+
+Previous output:
 
 Initial Header Value
 
@@ -32,22 +46,6 @@ namespace{
             out.println("Hello World!");
         }
     }
-
-
-Previous output:
-
-using System;
-
-namespace HelloWorld
-{
-    class HelloWorld
-    {
-        static void main(String[] args)(string[] args)
-        {
-            System.out.println("Hello World!");
-        }
-    }
-}
 
 Switch to a certain translation protocol based on which language we are translating to.
 Leave the main translation function mostly alone if we handle issues like the "public" or 
@@ -127,22 +125,23 @@ void Translator::translate() {
         z_str = scanner.m_CurrentLexeme;
 
         // Code to fix "public" issues from C# to Java
-        if (m_outputLanguage == "Java") {
+        if (m_inputLanguage == "CSharp" && m_outputLanguage == "Java") {
             // Skip over "namespace", project name, and opening curly brace
             if (z_str == "namespace") {                     // m_CurrentLexeme: "namespace"
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: " " whitespace
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: the project name ("HelloWorld")
                 z_projectName = scanner.m_CurrentLexeme;    // Set the project name
-                m_HSB.insert(0, "package " + z_projectName + ";\n\n");
+                m_HSB.insert(0, "package " + z_projectName + ";\n");
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: "{"
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: "class" or whatever is after the curly brace
+                z_str = scanner.m_CurrentLexeme;
             } else if (z_str == "class") {
                 if (z_prevStr != "private" || z_prevStr != "protected") {
                     m_BSB += "public ";
                 }
             } else if (z_str == "main" || z_str == "Main") {
                 // If "main" is found, go back 19 indices to see if public is there
-                size_t index = m_BSB.find(z_str);
+                size_t index = m_BSB.length();
                 // If "public" isn't already there, add it
                 if (m_BSB.substr(index - 19, 6) != "public") { // The possible index of "public"
                     m_BSB.insert(index - 12, "public "); // Insert before "static"
@@ -150,12 +149,11 @@ void Translator::translate() {
             }
         }
 
-        z_str = scanner.m_CurrentLexeme;
         translateStr(z_str, z_numCode);
     }
 
     // Skip over closing curly brace of "namespace"
-    int i = m_BSB.length;
+    int i = m_BSB.length();
     size_t found = m_BSB.rfind("}");
     if (found != std::string::npos) {
         m_BSB.replace(found, 1, "");
