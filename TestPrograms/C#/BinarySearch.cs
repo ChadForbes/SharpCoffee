@@ -1,9 +1,5 @@
 ﻿using System;
 
-/*
- * Based off of InsertionSort program
- */
-
 namespace BinarySearch
 {
     class BinarySearch

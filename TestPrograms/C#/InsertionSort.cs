@@ -6,7 +6,7 @@ namespace InsertionSort
     {
         public static void Main()
         {
-            /* The unsorted array. The sorted array should be
+            /* Sorted array
              * { 1, 2, 2, 2, 3, 3, 4, 5, 6, 7 }
             */
             int[] arr = { 2, 6, 3, 2, 4, 3, 1, 7, 2, 5 };
