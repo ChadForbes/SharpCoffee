@@ -20,9 +20,9 @@ package HelloWorld;
 
 
 
-using System;
+import System;
 
-{
+
 	public class HelloWorld
 	{
 		public static void main(String[] args)
@@ -31,21 +31,24 @@ using System;
 		}
 	}
 
+
 Previous output:
 
-Initial Header Value
+package HelloWorld;
 
-Initial Body Value
-import System;
-//Modify
-namespace{
+
+
+using System;
+
+{
     public class HelloWorld
     {
-        static void main(String[] args)(string[] args)
+        public static void main(String[] args)
         {
             out.println("Hello World!");
         }
     }
+
 
 Switch to a certain translation protocol based on which language we are translating to.
 Leave the main translation function mostly alone if we handle issues like the "public" or 
@@ -131,7 +134,7 @@ void Translator::translate() {
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: " " whitespace
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: the project name ("HelloWorld")
                 z_projectName = scanner.m_CurrentLexeme;    // Set the project name
-                m_HSB.insert(0, "package " + z_projectName + ";\n");
+                m_HSB.insert(0, "package " + z_projectName + ";");
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: "{"
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: "class" or whatever is after the curly brace
                 z_str = scanner.m_CurrentLexeme;
@@ -159,7 +162,7 @@ void Translator::translate() {
         m_BSB.replace(found, 1, "");
     }
 
-    m_outputFileString = m_HSB + "\n\n" + m_BSB;
+    m_outputFileString = m_HSB + "\n" + m_BSB;
     cout << m_outputFileString;
 }
 
