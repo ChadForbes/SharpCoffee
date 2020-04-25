@@ -63,6 +63,7 @@ Translator::Translator() {
             m_Mapping[x].insert(make_pair(y, z_Root[x][y].asString()));
         }
     }
+    z_ifs.close();
 }
 
 Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_outputLanguage) {
@@ -93,6 +94,7 @@ Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_
             m_Mapping[x].insert(make_pair(y, z_Root[x][y].asString()));
         }
     }
+    z_ifs.close();
 }
 
 void Translator::translate() {
