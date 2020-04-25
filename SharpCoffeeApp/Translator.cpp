@@ -11,7 +11,7 @@ using namespace std;
 
 /*
 Current issues:
-* "using" not translating
+* "import System;" needs to be omitted
 * "System" for printing being deleted instead of just being ignored
 
 Current output:
@@ -30,25 +30,6 @@ import System;
 			out.println("Hello World!");
 		}
 	}
-
-
-Previous output:
-
-package HelloWorld;
-
-
-
-using System;
-
-{
-    public class HelloWorld
-    {
-        public static void main(String[] args)
-        {
-            out.println("Hello World!");
-        }
-    }
-
 
 Switch to a certain translation protocol based on which language we are translating to.
 Leave the main translation function mostly alone if we handle issues like the "public" or 
@@ -172,7 +153,6 @@ void Translator::translateStr(string a_str, int a_numCode) {
         if (inMapping(a_str)) {
             m_BSB += m_outputBodyString(a_str);
             m_HSB += m_outputHeaderString(a_str);
-            // getHeaderInfo(a_str);
         }
         else if (!inMapping(a_str)) {
             m_BSB += a_str;
@@ -182,8 +162,7 @@ void Translator::translateStr(string a_str, int a_numCode) {
         string numCodeStr = to_string(a_numCode);
         if (inMapping(numCodeStr)) {
             m_BSB += m_outputBodyString(numCodeStr);
-            m_HSB += m_outputHeaderString(a_str);
-            // getHeaderInfo(numCodeStr);
+            m_HSB += m_outputHeaderString(numCodeStr);
         }
         else if (!inMapping(numCodeStr)) {
             m_BSB += a_str;
@@ -202,13 +181,6 @@ string Translator::m_outputHeaderString(std::string a_str) {
     map<string, string> z_outputmap = m_Mapping.find(a_str)->second;
     return z_outputmap.find("head")->second;
 }
-
-/*
-void Translator::getHeaderInfo(string a_str) {
-    map<string, string> z_outputMap = m_Mapping.find(a_str)->second;
-    m_HSB += z_outputMap.find("head")->second;
-}
-*/
 
 string Translator::m_outputBodyString(std::string a_str) {
     map<string, string> z_outputMap = m_Mapping.find(a_str)->second;
