@@ -15,21 +15,19 @@ Current issues:
 * "System" for printing being deleted instead of just being ignored
 
 Current output:
-
 package HelloWorld;
-
-
-
 import System;
 
 
-	public class HelloWorld
-	{
-		public static void main(String[] args)
-		{
-			out.println("Hello World!");
-		}
-	}
+    public class HelloWorld
+    {
+        public static void main(String[] args)
+        {
+            out.println("Hello World!");
+        }
+    }
+
+
 
 Switch to a certain translation protocol based on which language we are translating to.
 Leave the main translation function mostly alone if we handle issues like the "public" or 
@@ -100,16 +98,25 @@ Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_
 void Translator::translate() {
     string z_str = "";
     int z_numCode = 0;
+    bool temp = true;
     string z_projectName = "";
     string z_prevStr = "";
 
     while (z_numCode != -1) {
-        z_prevStr = z_str;
+        /*
+        if (temp) {
+            z_prevStr = z_str;
+        }
+        */
         z_numCode = scanner.NextLexeme();
+        // temp = !temp;
         z_str = scanner.m_CurrentLexeme;
 
         // Code to fix "public" issues from C# to Java
         if (m_inputLanguage == "CSharp" && m_outputLanguage == "Java") {
+            if (z_str == "System" && z_prevStr == "using") {
+
+            }
             // Skip over "namespace", project name, and opening curly brace
             if (z_str == "namespace") {                     // m_CurrentLexeme: "namespace"
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: " " whitespace
@@ -117,7 +124,9 @@ void Translator::translate() {
                 z_projectName = scanner.m_CurrentLexeme;    // Set the project name
                 m_HSB.insert(0, "package " + z_projectName + ";");
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: "{"
+                z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: "\n" (new line)
                 z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: "class" or whatever is after the curly brace
+                // temp = !temp;                               // temp inverted
                 z_str = scanner.m_CurrentLexeme;
             } else if (z_str == "class") {
                 if (z_prevStr != "private" || z_prevStr != "protected") {
@@ -136,9 +145,15 @@ void Translator::translate() {
         translateStr(z_str, z_numCode);
     }
 
-    // Skip over closing curly brace of "namespace"
     int i = m_BSB.length();
-    size_t found = m_BSB.rfind("}");
+    // Skip over "using System;"
+    size_t found = m_BSB.find("import System;");
+    if (found != std::string::npos) {
+        m_BSB.replace(found, 14, "");
+    }
+
+    // Skip over closing curly brace of "namespace"
+    found = m_BSB.rfind("}");
     if (found != std::string::npos) {
         m_BSB.replace(found, 1, "");
     }
