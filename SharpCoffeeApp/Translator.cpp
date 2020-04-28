@@ -4,12 +4,21 @@
 #include <fstream>
 #include <string>
 #include <map>
-#include "json/json.h"
 #include <iterator>
+#include <vector>
+#include "json/json.h"
 
 using namespace std;
 
 /*
+1. Add member variable to Translator class: vector<pair<string, int>> (A vector of pairs; each a pair of
+(z_str, z_numCode). Vector in C++ like ArrayList/List in Java.
+2. Instead of translateStr(), add the (z_str, z_numCode) pair to the end of the vector.
+(z_str, z_numCode) is appended to the vector first instead of m_outputFileString.
+3. Make any fixes (insertions, deletions,...) to the vector at any set index easily; no dealing with string.
+4. Now, we call translateStr() in the for loop, appending each translated (z_str, z_numCode) to
+m_outputFileString.
+
 Current issues:
 * "import System;" needs to be omitted
 * "System" for printing being deleted instead of just being ignored
@@ -41,9 +50,11 @@ Translator::Translator() {
 
     m_mappingFilePath = "Mappings\\" + m_inputLanguage + "_to_" + m_outputLanguage + "_Mapping.json";
 
-    m_outputFileString = "";
+    //m_outputVector;
+
     m_HSB = "";
     m_BSB = "";
+    m_outputFileString = "";
 
     scanner.Init(m_inputFilePath);
 
@@ -73,9 +84,9 @@ Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_
 
     m_mappingFilePath = "Mappings\\" + m_inputLanguage + "_to_" + m_outputLanguage + "_Mapping.json";
 
-    m_outputFileString = "";
     m_HSB = "";
     m_BSB = "";
+    m_outputFileString = "";
 
     scanner.Init(m_inputFilePath);
 
@@ -97,6 +108,11 @@ Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_
     z_ifs.close();
 }
 
+/*
+Current issue with translate():
+Difficulties moving within the index of the string builder to insert or delete tokens (especially with m_BSB).
+Use vector instead
+*/
 void Translator::translate() {
     string z_str = "";
     int z_numCode = 0;
@@ -104,6 +120,7 @@ void Translator::translate() {
     string z_projectName = "";
     string z_prevStr = "";
 
+    // while loop to add all string and numeric code pairs to the vector
     while (z_numCode != -1) {
         /*
         if (temp) {
@@ -114,6 +131,7 @@ void Translator::translate() {
         // temp = !temp;
         z_str = scanner.m_CurrentLexeme;
 
+        /*
         // Code to fix "public" issues from C# to Java
         if (m_inputLanguage == "CSharp" && m_outputLanguage == "Java") {
             if (z_str == "System" && z_prevStr == "using") {
@@ -143,10 +161,62 @@ void Translator::translate() {
                 }
             }
         }
+        */
 
-        translateStr(z_str, z_numCode);
-    }
+        // Instead of calling translateStr() directly on (z_str, z_numCode) add them to m_outputVector instead
+        m_outputVector.push_back(pair<string, int>(z_str, z_numCode));
+        //translateStr(z_str, z_numCode);
+    } // end while loop
 
+    /*
+    List of fixes:
+    1. using System - Omit "using System;", but not other imports
+    2. namespace - Skip over "namespace", project name, and curly braces
+    3. public class - Add "public" if no access modifier found
+    4. public main - If "public" not found before main, add it
+    5. System.out.println() - Add "System" back to the printing
+    */
+
+    vector<pair<string, int>>::iterator z_it;
+    string z_projectName;
+    if (m_inputLanguage == "CSharp" && m_outputLanguage == "Java") {
+        for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it) {
+            // Erase the pair when z_it equals "using" and 2 indices down at "System;"
+            if (z_it->first == "using" && (z_it + 2)->first == "System") { // z_it->first: "using"
+                m_outputVector.erase(z_it);                                 // (z_it + 1)->first: "System"
+                m_outputVector.erase(z_it + 1);
+            }
+            // If "namespace is found, omit it, the project name, and the opening and closing curly brace
+            if (z_it->first == "namespace") {                               // z_it->first: "namespace"
+                m_outputVector.erase(z_it);                                 // z_it->first: whitespace
+                m_outputVector.erase(z_it);                                 // z_it->first: project name
+                z_projectName = z_it->first;                                // Set the project name
+                m_HSB.insert(0, "package " + z_projectName + ";");          // Set the package name in the header string builder
+
+            }
+            // Insert "public" if not found
+            if (z_it->first == "class" && ( (z_it - 2)->first != "public" ||
+                                            (z_it - 2)->first != "protected" ||
+                                            (z_it - 2)->first != "internal" ||
+                                            (z_it - 2)->first != "private")   ) {
+                m_outputVector.insert(z_it, make_pair(" ", -110));
+                m_outputVector.insert(z_it, make_pair("public", 50));
+                // z_it->first.insert(0, "public ");
+            }
+            // Insert "public for main
+            if ((z_it->first == "main" || z_it->first == "Main") && (z_it - 6)->first != "public") {
+                m_outputVector.insert(z_it - 4, make_pair(" ", -110));
+                m_outputVector.insert(z_it - 4, make_pair("public", 50));
+                // (z_it - 4)->first.insert(0, "public ");
+            }
+        } // end for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it)
+
+        for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it) {
+            translateStr(z_it->first, z_it->second);
+        }
+    } // end if (m_inputLanguage == "CSharp" && m_outputLanguage == "Java")
+
+    /*
     int i = m_BSB.length();
     // Skip over "using System;"
     size_t found = m_BSB.find("import System;");
@@ -159,9 +229,14 @@ void Translator::translate() {
     if (found != std::string::npos) {
         m_BSB.replace(found, 1, "");
     }
+    */
 
     m_outputFileString = m_HSB + "\n" + m_BSB;
     cout << m_outputFileString;
+}
+
+bool Translator::found(string a_vectorStr, string a_str) {
+    return a_vectorStr == a_str;
 }
 
 void Translator::translateStr(string a_str, int a_numCode) {
