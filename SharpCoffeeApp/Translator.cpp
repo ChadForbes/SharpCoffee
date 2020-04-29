@@ -115,7 +115,7 @@ void Translator::translate() {
                 z_it->second = 0;
                 (z_it + 1)->first = "";                                     // erase " "
                 (z_it + 1)->second = 0;
-                z_projectName = z_it->first;                                // Set the project name
+                z_projectName = (z_it + 2)->first;                          // Set the project name
                 m_HSB.insert(0, "package " + z_projectName + ";");          // Set the package name
                 (z_it + 2)->first = "";                                     // erase project name
                 (z_it + 2)->second = 0;
@@ -155,7 +155,8 @@ void Translator::translate() {
                     ++z_it2;
                 }
                 bool temp = true;
-                while ((z_it2->first != "}" || !temp) && z_it2 != m_outputVector.end()) {
+                for (; (z_it2->first != "}" || !temp) && z_it2 != m_outputVector.end(); ++z_it2) {
+                // while ((z_it2->first != "}" || !temp) && z_it2 != m_outputVector.end()) {
                     if (z_it2->first == "{") {
                         temp = false;
                     }
@@ -163,14 +164,24 @@ void Translator::translate() {
                         temp = true;
                     }
                     if (z_it2->first == "return") {
+                        for (; z_it2->first != ";" && z_it2 != m_outputVector.end(); ++z_it2)
+                        {
+                            z_it2->first = "";
+                            z_it2->second = 0;
+                        }
+                        z_it2->first = "";
+                        z_it2->second = 0;
+                        /*
                         int i;
-                        for (i = 0; z_it2->first != ";"; i++) {
+                        for (i = 0; (z_it2 + i)->first != ";"; i++) {
                             (z_it2 + i)->first = "";
                             (z_it2 + i)->second = 0;
                         }
                         (z_it2 + i)->first = "";
                         (z_it2 + i)->second = 0;
+                        */
                     }
+                    // ++z_it2;
                 }
                 // FIX: int Main -> void main
                 if ((z_it - 2)->first == "int") {
