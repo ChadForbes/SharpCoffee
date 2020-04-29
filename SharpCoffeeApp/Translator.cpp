@@ -156,13 +156,38 @@ void Translator::translate() {
         for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it) {
             // Erase the pair when z_it equals "using" and 2 indices down at "System;"
             if (z_it->first == "using" && (z_it + 2)->first == "System") {  // z_it->first: "using"
+                z_it->first = "";                                           // erase "using"
+                z_it->second = 0;
+                (z_it + 1)->first = "";                                     // erase " "
+                (z_it + 1)->second = 0;
+                (z_it + 2)->first = "";                                     // erase "System"
+                (z_it + 2)->second = 0;
+                (z_it + 3)->first = "";                                     // erase ";"
+                (z_it + 3)->second = 0;
+
+                /*
                 m_outputVector.erase(z_it);                                 // erase "using"
                 m_outputVector.erase(z_it);                                 // erase " "
                 m_outputVector.erase(z_it);                                 // erase "System"
                 m_outputVector.erase(z_it);                                 // erase ";"
+                */
             }
             // If "namespace is found, omit it, the project name, and the opening and closing curly brace
             if (z_it->first == "namespace") {                               // z_it->first: "namespace"
+                z_it->first = "";                                           // erase "namespace"
+                z_it->second = 0;
+                (z_it + 1)->first = "";                                     // erase " "
+                (z_it + 1)->second = 0;
+                z_projectName = z_it->first;                                // Set the project name
+                m_HSB.insert(0, "package " + z_projectName + ";");          // Set the package name
+                (z_it + 2)->first = "";                                     // erase project name
+                (z_it + 2)->second = 0;
+                (z_it + 3)->first = "";                                     // erase " "
+                (z_it + 3)->second = 0;
+                (z_it + 4)->first = "";                                     // erase "{"
+                (z_it + 4)->second = 0;
+
+                /*
                 m_outputVector.erase(z_it);                                 // erase "namespace"
                 m_outputVector.erase(z_it);                                 // erase " "
                 z_projectName = z_it->first;                                // Set the project name
@@ -170,6 +195,7 @@ void Translator::translate() {
                 m_outputVector.erase(z_it);                                 // erase project name
                 m_outputVector.erase(z_it);                                 // erase " "
                 m_outputVector.erase(z_it);                                 // erase "{"
+                */
             }
             // Insert "public" if not found
             if (z_it->first == "class" && ( (z_it - 2)->first != "public" ||
@@ -178,19 +204,19 @@ void Translator::translate() {
                                             (z_it - 2)->first != "private")   ) {
                 m_outputVector.insert(z_it, make_pair(" ", -110));
                 m_outputVector.insert(z_it, make_pair("public", 50));
-                // z_it->first.insert(0, "public ");
             }
             // Insert "public for main
             if ((z_it->first == "main" || z_it->first == "Main") && (z_it - 6)->first != "public") {
                 m_outputVector.insert(z_it - 4, make_pair(" ", -110));
                 m_outputVector.insert(z_it - 4, make_pair("public", 50));
-                // (z_it - 4)->first.insert(0, "public ");
             }
         } // end for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it)
 
         for (z_it = m_outputVector.end(); z_it != m_outputVector.begin(); --z_it) {
             if (z_it->first == "}") {
-                m_outputVector.erase(z_it);
+                z_it->first = "";
+                z_it->second = 0;
+                // m_outputVector.erase(z_it);
                 break;
             }
         }
