@@ -135,7 +135,7 @@ int Scanner::NextLexeme()
 		z_StateTable = m_StateTables[0][0][z_InputCode];
 		if (z_StateTable == -4)
 		{
-			m_CurrentLexeme = "EOF";
+			m_CurrentLexeme = "";
 			return -1;
 		}
 		m_CurrentLexeme = "";
