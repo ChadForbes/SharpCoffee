@@ -165,10 +165,13 @@ void Translator::translate() {
                                 temp = true;
                             }
                             if (z_it2->first == "return") {
-                                for (int i = 0; z_it2->first != ";"; i++) {
+                                int i;
+                                for (i = 0; z_it2->first != ";"; i++) {
                                     (z_it2 + i)->first = "";
                                     (z_it2 + i)->second = 0;
                                 }
+                                (z_it2 + i + 1)->first = "";
+                                (z_it2 + i + 1)->second = 0;
                                 /*
                                 z_it2->first = "";          // erase "return"
                                 z_it2->second = 0;
