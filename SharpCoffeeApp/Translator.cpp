@@ -98,7 +98,7 @@ void Translator::translate() {
     string z_projectName;
     if (m_inputLanguage == "CSharp" && m_outputLanguage == "Java") {
         for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it) {
-            // Erase the pair when z_it equals "using" and 2 indices down at "System;"
+            // FIX: Omit "using", " ", "System", and ";"
             if (z_it->first == "using" && (z_it + 2)->first == "System") {  // z_it->first: "using"
                 z_it->first = "";                                           // erase "using"
                 z_it->second = 0;
@@ -109,7 +109,7 @@ void Translator::translate() {
                 (z_it + 3)->first = "";                                     // erase ";"
                 (z_it + 3)->second = 0;
             }
-            // If "namespace is found, omit it, the project name, and the opening and closing curly brace
+            // FIX: Omit "namespace", project name, "{", and "}"
             if (z_it->first == "namespace") {                               // z_it->first: "namespace"
                 z_it->first = "";                                           // erase "namespace"
                 z_it->second = 0;
@@ -124,14 +124,15 @@ void Translator::translate() {
                 (z_it + 4)->first = "";                                     // erase "{"
                 (z_it + 4)->second = 0;
             }
-            // Insert "public" if not found
+            // FIX: class -> public class
             if (z_it->first == "class" && ( (z_it - 2)->first != "public"   ||  (z_it - 2)->first != "protected"    ||
                                             (z_it - 2)->first != "internal" ||  (z_it - 2)->first != "private") ) {
                 m_outputVector.insert(z_it, make_pair(" ", -110));
                 m_outputVector.insert(z_it, make_pair("public", 50));
             }
+            // FIX: Main method
             if (z_it->first == "main" || z_it->first == "Main") {
-                // From "Main", if "public" is not found within the range of ("{", z_it), add it before "static"
+                // FIX: Main -> public main
                 z_it2 = z_it;
                 // Assign z_it2 to the last "{" before "Main"
                 while (z_it2->first != "static") {
@@ -141,22 +142,13 @@ void Translator::translate() {
                     m_outputVector.insert(z_it2, make_pair(" ", -110));
                     m_outputVector.insert(z_it2, make_pair("public", 50));
                 }
-
-                /*
-                if ((z_it - 6)->first != "public") {
-                    m_outputVector.insert(z_it - 4, make_pair(" ", -110));
-                    m_outputVector.insert(z_it - 4, make_pair("public", 50));
-                }
-                */
-
-                // Insert "String[] args" if no parameters
+                // FIX: Main() -> Main(String[] args)
                 if ((z_it + 2)->first == ")") {
                     (z_it + 2)->first = "String[] args)";
                     (z_it + 2)->second = 0;
-                    // Omit any returns within main
+                    /*
                     if ((z_it + 4)->first == "{") {
                         bool temp = true;
-                        // Stay within the curly braces of the main method
                         for (z_it2 = (z_it + 4); (z_it2->first != "}" || !temp); ++z_it2) {
                             if (z_it2->first == "{") {
                                 temp = false;
@@ -170,8 +162,8 @@ void Translator::translate() {
                                     (z_it2 + i)->first = "";
                                     (z_it2 + i)->second = 0;
                                 }
-                                (z_it2 + i + 1)->first = "";
-                                (z_it2 + i + 1)->second = 0;
+                                (z_it2 + i)->first = "";
+                                (z_it2 + i)->second = 0;
                                 /*
                                 z_it2->first = "";          // erase "return"
                                 z_it2->second = 0;
@@ -181,12 +173,37 @@ void Translator::translate() {
                                 (z_it2 + 2)->second = 0;
                                 (z_it2 + 3)->first = "";    // erase ";"
                                 (z_it2 + 3)->second = 0;
-                                */
+                                *
                             }
                         }
                     }
+                    */
                 }
-                // Replace "int" with "void"
+                // FIX: Omit returned values within main
+                z_it2 = z_it;
+                // Assign z_it2 to the first "{" after "Main"
+                while (z_it2->first != "{") {
+                    ++z_it2;
+                }
+                bool temp = true;
+                while (z_it2->first != "}" || !temp) {
+                    if (z_it2->first == "{") {
+                        temp = false;
+                    }
+                    if (z_it2->first == "}") {
+                        temp = true;
+                    }
+                    if (z_it2->first == "return") {
+                        int i;
+                        for (i = 0; z_it2->first != ";"; i++) {
+                            (z_it2 + i)->first = "";
+                            (z_it2 + i)->second = 0;
+                        }
+                        (z_it2 + i)->first = "";
+                        (z_it2 + i)->second = 0;
+                    }
+                }
+                // FIX: int Main -> void main
                 if ((z_it - 2)->first == "int") {
                     (z_it - 2)->first = "void";
                     (z_it - 2)->second = 75;
