@@ -12,8 +12,11 @@ using namespace std;
 
 /*
 Current issues:
-* "import System;" needs to be omitted
-* "System" for printing being deleted instead of just being ignored
+1. Translate .Length to .length
+    * C# .Length used for arrays and strings. Java .length used for arrays, .length() used for strings
+    * 
+2. C# allows Main method to have no parameters (Main())
+3. C# allows Main method to return an int (must be void in Java)
 */
 
 Translator::Translator() {
@@ -81,74 +84,16 @@ Translator::Translator(string a_inputFilePath, string a_inputLanguage, string a_
     z_ifs.close();
 }
 
-/*
-Current issue with translate():
-Difficulties moving within the index of the string builder to insert or delete tokens (especially with m_BSB).
-Use vector instead
-*/
 void Translator::translate() {
     string z_str = "";
     int z_numCode = 0;
-    bool temp = true;
-    string z_projectName = "";
-    string z_prevStr = "";
 
     // while loop to add all string and numeric code pairs to the vector
     while (z_numCode != -1) {
-        /*
-        if (temp) {
-            z_prevStr = z_str;
-        }
-        */
         z_numCode = scanner.NextLexeme();
-        // temp = !temp;
         z_str = scanner.m_CurrentLexeme;
-
-        /*
-        // Code to fix "public" issues from C# to Java
-        if (m_inputLanguage == "CSharp" && m_outputLanguage == "Java") {
-            if (z_str == "System" && z_prevStr == "using") {
-
-            }
-            // Skip over "namespace", project name, and opening curly brace
-            if (z_str == "namespace") {                     // m_CurrentLexeme: "namespace"
-                z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: " " whitespace
-                z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: the project name ("HelloWorld")
-                z_projectName = scanner.m_CurrentLexeme;    // Set the project name
-                m_HSB.insert(0, "package " + z_projectName + ";");
-                z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: "{"
-                z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: "\n" (new line)
-                z_numCode = scanner.NextLexeme();           // m_CurrentLexeme: "class" or whatever is after the curly brace
-                // temp = !temp;                               // temp inverted
-                z_str = scanner.m_CurrentLexeme;
-            } else if (z_str == "class") {
-                if (z_prevStr != "private" || z_prevStr != "protected") {
-                    m_BSB += "public ";
-                }
-            } else if (z_str == "main" || z_str == "Main") {
-                // If "main" is found, go back 19 indices to see if public is there
-                size_t index = m_BSB.length();
-                // If "public" isn't already there, add it
-                if (m_BSB.substr(index - 19, 6) != "public") { // The possible index of "public"
-                    m_BSB.insert(index - 12, "public "); // Insert before "static"
-                }
-            }
-        }
-        */
-
-        // Instead of calling translateStr() directly on (z_str, z_numCode) add them to m_outputVector instead
         m_outputVector.push_back(pair<string, int>(z_str, z_numCode));
-        //translateStr(z_str, z_numCode);
-    } // end while loop
-
-    /*
-    List of fixes:
-    1. using System - Omit "using System;", but not other imports
-    2. namespace - Skip over "namespace", project name, and curly braces
-    3. public class - Add "public" if no access modifier found
-    4. public main - If "public" not found before main, add it
-    5. System.out.println() - Add "System" back to the printing
-    */
+    }
 
     vector<pair<string, int>>::iterator z_it;
     string z_projectName;
@@ -164,13 +109,6 @@ void Translator::translate() {
                 (z_it + 2)->second = 0;
                 (z_it + 3)->first = "";                                     // erase ";"
                 (z_it + 3)->second = 0;
-
-                /*
-                m_outputVector.erase(z_it);                                 // erase "using"
-                m_outputVector.erase(z_it);                                 // erase " "
-                m_outputVector.erase(z_it);                                 // erase "System"
-                m_outputVector.erase(z_it);                                 // erase ";"
-                */
             }
             // If "namespace is found, omit it, the project name, and the opening and closing curly brace
             if (z_it->first == "namespace") {                               // z_it->first: "namespace"
@@ -186,37 +124,55 @@ void Translator::translate() {
                 (z_it + 3)->second = 0;
                 (z_it + 4)->first = "";                                     // erase "{"
                 (z_it + 4)->second = 0;
-
-                /*
-                m_outputVector.erase(z_it);                                 // erase "namespace"
-                m_outputVector.erase(z_it);                                 // erase " "
-                z_projectName = z_it->first;                                // Set the project name
-                m_HSB.insert(0, "package " + z_projectName + ";");          // Set the package name
-                m_outputVector.erase(z_it);                                 // erase project name
-                m_outputVector.erase(z_it);                                 // erase " "
-                m_outputVector.erase(z_it);                                 // erase "{"
-                */
             }
             // Insert "public" if not found
-            if (z_it->first == "class" && ( (z_it - 2)->first != "public" ||
-                                            (z_it - 2)->first != "protected" ||
-                                            (z_it - 2)->first != "internal" ||
-                                            (z_it - 2)->first != "private")   ) {
+            if (z_it->first == "class" && ( (z_it - 2)->first != "public"   ||  (z_it - 2)->first != "protected"    ||
+                                            (z_it - 2)->first != "internal" ||  (z_it - 2)->first != "private") ) {
                 m_outputVector.insert(z_it, make_pair(" ", -110));
                 m_outputVector.insert(z_it, make_pair("public", 50));
             }
-            // Insert "public for main
-            if ((z_it->first == "main" || z_it->first == "Main") && (z_it - 6)->first != "public") {
-                m_outputVector.insert(z_it - 4, make_pair(" ", -110));
-                m_outputVector.insert(z_it - 4, make_pair("public", 50));
+            if (z_it->first == "main" || z_it->first == "Main") {
+                // Insert "public" for main
+                if ((z_it - 6)->first != "public") {
+                    m_outputVector.insert(z_it - 4, make_pair(" ", -110));
+                    m_outputVector.insert(z_it - 4, make_pair("public", 50));
+                }
+                // Insert "String[] args" if no parameters
+                if ((z_it + 2)->first == ")") {
+                    (z_it + 2)->first = "String[] args)";
+                    (z_it + 2)->second = 0;
+                    // Omit any returns within main
+                    if ((z_it + 4)->first == "{") {
+                        vector<pair<string, int>>::iterator z_it2;
+                        bool temp = true;
+                        // Stay within the curly braces of the main method
+                        for (z_it2 = (z_it + 4); (z_it2->first != "}" && !temp); ++z_it2) {
+                            if (z_it2->first == "{") {
+                                temp = false;
+                            }
+                            if (z_it2->first == "}") {
+                                temp = true;
+                            }
+                            if (z_it2->first == "return") {
+                                z_it2->first = "";          // erase "return"
+                                z_it2->second = 0;
+                                (z_it2 + 1)->first = "";    // erase " "
+                                (z_it2 + 1)->second = 0;
+                                (z_it2 + 2)->first = "";    // erase the returned value
+                                (z_it2 + 2)->second = 0;
+                                (z_it2 + 3)->first = "";    // erase ";"
+                                (z_it2 + 3)->second = 0;
+                            }
+                        }
+                    }
+                }
             }
-        } // end for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it)
+        }
 
         for (z_it = m_outputVector.end(); z_it != m_outputVector.begin(); --z_it) {
             if (z_it->first == "}") {
                 z_it->first = "";
                 z_it->second = 0;
-                // m_outputVector.erase(z_it);
                 break;
             }
         }
@@ -224,22 +180,7 @@ void Translator::translate() {
         for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it) {
             translateStr(z_it->first, z_it->second);
         }
-    } // end if (m_inputLanguage == "CSharp" && m_outputLanguage == "Java")
-
-    /*
-    int i = m_BSB.length();
-    // Skip over "using System;"
-    size_t found = m_BSB.find("import System;");
-    if (found != std::string::npos) {
-        m_BSB.replace(found, 14, "");
     }
-
-    // Skip over closing curly brace of "namespace"
-    found = m_BSB.rfind("}");
-    if (found != std::string::npos) {
-        m_BSB.replace(found, 1, "");
-    }
-    */
 
     m_outputFileString = m_HSB + "\n" + m_BSB;
     cout << m_outputFileString;
