@@ -99,7 +99,7 @@ void Translator::translate() {
     if (m_inputLanguage == "CSharp" && m_outputLanguage == "Java") {
         for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it) {
             // FIX: Omit "using", " ", "System", and ";"
-            if (z_it->first == "using" && (z_it + 2)->first == "System") {  // z_it->first: "using"
+            if (z_it->first == "using" && (z_it + 2)->first == "System") {
                 z_it->first = "";                                           // erase "using"
                 z_it->second = 0;
                 (z_it + 1)->first = "";                                     // erase " "
@@ -126,7 +126,8 @@ void Translator::translate() {
             }
             // FIX: class -> public class
             if (z_it->first == "class" && ( (z_it - 2)->first != "public"   ||  (z_it - 2)->first != "protected"    ||
-                                            (z_it - 2)->first != "internal" ||  (z_it - 2)->first != "private") ) {
+                                            (z_it - 2)->first != "internal" ||  (z_it - 2)->first != "private")     &&
+                                            z_it != m_outputVector.end()                                                ) {
                 m_outputVector.insert(z_it, make_pair(" ", -110));
                 m_outputVector.insert(z_it, make_pair("public", 50));
             }
@@ -135,7 +136,7 @@ void Translator::translate() {
                 // FIX: Main -> public main
                 z_it2 = z_it;
                 // Assign z_it2 to the last "{" before "Main"
-                while (z_it2->first != "static") {
+                while (z_it2->first != "static" && z_it2 != m_outputVector.end()) {
                     --z_it2;
                 }
                 if ((z_it2 - 2)->first != "public") {
@@ -146,47 +147,15 @@ void Translator::translate() {
                 if ((z_it + 2)->first == ")") {
                     (z_it + 2)->first = "String[] args)";
                     (z_it + 2)->second = 0;
-                    /*
-                    if ((z_it + 4)->first == "{") {
-                        bool temp = true;
-                        for (z_it2 = (z_it + 4); (z_it2->first != "}" || !temp); ++z_it2) {
-                            if (z_it2->first == "{") {
-                                temp = false;
-                            }
-                            if (z_it2->first == "}") {
-                                temp = true;
-                            }
-                            if (z_it2->first == "return") {
-                                int i;
-                                for (i = 0; z_it2->first != ";"; i++) {
-                                    (z_it2 + i)->first = "";
-                                    (z_it2 + i)->second = 0;
-                                }
-                                (z_it2 + i)->first = "";
-                                (z_it2 + i)->second = 0;
-                                /*
-                                z_it2->first = "";          // erase "return"
-                                z_it2->second = 0;
-                                (z_it2 + 1)->first = "";    // erase " "
-                                (z_it2 + 1)->second = 0;
-                                (z_it2 + 2)->first = "";    // erase the returned value
-                                (z_it2 + 2)->second = 0;
-                                (z_it2 + 3)->first = "";    // erase ";"
-                                (z_it2 + 3)->second = 0;
-                                *
-                            }
-                        }
-                    }
-                    */
                 }
                 // FIX: Omit returned values within main
                 z_it2 = z_it;
                 // Assign z_it2 to the first "{" after "Main"
-                while (z_it2->first != "{") {
+                while (z_it2->first != "{" && z_it2 != m_outputVector.end()) {
                     ++z_it2;
                 }
                 bool temp = true;
-                while (z_it2->first != "}" || !temp) {
+                while ((z_it2->first != "}" || !temp) && z_it2 != m_outputVector.end()) {
                     if (z_it2->first == "{") {
                         temp = false;
                     }
@@ -208,7 +177,7 @@ void Translator::translate() {
                     (z_it - 2)->first = "void";
                     (z_it - 2)->second = 75;
                 }
-            }
+            } // end FIX: Main method
         }
 
         for (z_it = m_outputVector.end(); z_it != m_outputVector.begin(); --z_it) {
