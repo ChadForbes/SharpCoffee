@@ -11,36 +11,9 @@
 using namespace std;
 
 /*
-1. Add member variable to Translator class: vector<pair<string, int>> (A vector of pairs; each a pair of
-(z_str, z_numCode). Vector in C++ like ArrayList/List in Java.
-2. Instead of translateStr(), add the (z_str, z_numCode) pair to the end of the vector.
-(z_str, z_numCode) is appended to the vector first instead of m_outputFileString.
-3. Make any fixes (insertions, deletions,...) to the vector at any set index easily; no dealing with string.
-4. Now, we call translateStr() in the for loop, appending each translated (z_str, z_numCode) to
-m_outputFileString.
-
 Current issues:
 * "import System;" needs to be omitted
 * "System" for printing being deleted instead of just being ignored
-
-Current output:
-package HelloWorld;
-import System;
-
-
-    public class HelloWorld
-    {
-        public static void main(String[] args)
-        {
-            out.println("Hello World!");
-        }
-    }
-
-
-
-Switch to a certain translation protocol based on which language we are translating to.
-Leave the main translation function mostly alone if we handle issues like the "public" or 
-"namespace" ones in a preprocessing function that then hands the edited C# code to the translation function.
 */
 
 Translator::Translator() {
@@ -182,17 +155,21 @@ void Translator::translate() {
     if (m_inputLanguage == "CSharp" && m_outputLanguage == "Java") {
         for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it) {
             // Erase the pair when z_it equals "using" and 2 indices down at "System;"
-            if (z_it->first == "using" && (z_it + 2)->first == "System") { // z_it->first: "using"
-                m_outputVector.erase(z_it);                                 // (z_it + 1)->first: "System"
-                m_outputVector.erase(z_it + 1);
+            if (z_it->first == "using" && (z_it + 2)->first == "System") {  // z_it->first: "using"
+                m_outputVector.erase(z_it);                                 // erase "using"
+                m_outputVector.erase(z_it);                                 // erase " "
+                m_outputVector.erase(z_it);                                 // erase "System"
+                m_outputVector.erase(z_it);                                 // erase ";"
             }
             // If "namespace is found, omit it, the project name, and the opening and closing curly brace
             if (z_it->first == "namespace") {                               // z_it->first: "namespace"
-                m_outputVector.erase(z_it);                                 // z_it->first: whitespace
-                m_outputVector.erase(z_it);                                 // z_it->first: project name
+                m_outputVector.erase(z_it);                                 // erase "namespace"
+                m_outputVector.erase(z_it);                                 // erase " "
                 z_projectName = z_it->first;                                // Set the project name
-                m_HSB.insert(0, "package " + z_projectName + ";");          // Set the package name in the header string builder
-
+                m_HSB.insert(0, "package " + z_projectName + ";");          // Set the package name
+                m_outputVector.erase(z_it);                                 // erase project name
+                m_outputVector.erase(z_it);                                 // erase " "
+                m_outputVector.erase(z_it);                                 // erase "{"
             }
             // Insert "public" if not found
             if (z_it->first == "class" && ( (z_it - 2)->first != "public" ||
@@ -210,6 +187,13 @@ void Translator::translate() {
                 // (z_it - 4)->first.insert(0, "public ");
             }
         } // end for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it)
+
+        for (z_it = m_outputVector.end(); z_it != m_outputVector.begin(); --z_it) {
+            if (z_it->first == "}") {
+                m_outputVector.erase(z_it);
+                break;
+            }
+        }
 
         for (z_it = m_outputVector.begin(); z_it != m_outputVector.end(); ++z_it) {
             translateStr(z_it->first, z_it->second);
